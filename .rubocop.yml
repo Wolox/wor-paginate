@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - wor-paginate.gemspec
+    - spec/**/*
+
+Documentation:
+  Enabled: false
+
+LineLength:
+  Max: 99
+
+FrozenStringLiteralComment:
+  Enabled: false
