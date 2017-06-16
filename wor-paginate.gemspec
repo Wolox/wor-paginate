@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version     = Wor::Paginate::VERSION
   s.platform    = Gem::Platform::RUBY
   s.date        = Date.today
-  s.authors     = ["hdf1986"]
-  s.email       = ["hugo.farji@wolox.com.ar"]
+  s.authors     = ["hdf1986", "icoluccio", "alanhala"]
+  s.email       = ["hugo.farji@wolox.com.ar", "ignacio.coluccio@wolox.com.ar", "alan.halatian@wolox.com.ar"]
   s.homepage    = "https://github.com/Wolox/wor-paginate"
   s.summary     = "Summary of Wor::Paginate."
   s.description = "Description of Wor::Paginate."
