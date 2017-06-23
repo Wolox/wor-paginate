@@ -9,6 +9,6 @@ install:
   - bundle install --retry=3
 
 script:
-  - bundle exec rubocop spec lib -R --format simple
+  - bundle exec rubocop -R --format simple
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter
