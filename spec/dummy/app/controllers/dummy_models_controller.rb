@@ -1,4 +1,4 @@
-class DummiesController < ApplicationController
+class DummyModelsController < ApplicationController
   protect_from_forgery with: :exception
   include Wor::Paginate
 

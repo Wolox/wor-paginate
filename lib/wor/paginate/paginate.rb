@@ -1,18 +1,20 @@
 module Wor
   module Paginate
+    attr_accessor :adapters
+
+    def initialize
+      self.adapters = [Adapters::Kaminari.new, Adapters::WillPaginate.new,
+                       Adapters::ActiveModel.new, Adapters::Array.new]
+    end
+
     def render_paginated(content)
-      render json: format_content(paginate(content))
+      render json: paginate(content)
     end
 
     def paginate(content)
-      content.page(page).per(limit)
-    end
-
-    def format_content(content)
-      { items: content,
-        count: content.count,
-        total: content.total_count,
-        page: page }
+      adapter = adapters.find { |possible_adapter| possible_adapter.adapt? content }
+      throw "No pagination adapter for class #{content.class}" unless adapter.present?
+      adapter.adapt(content, page, limit)
     end
 
     def page

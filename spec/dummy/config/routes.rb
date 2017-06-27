@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :dummies, only: [:index]
+  resources :dummy_models, only: [:index]
 end
