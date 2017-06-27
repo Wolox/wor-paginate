@@ -22,7 +22,14 @@ $ gem install wor-paginate
 ```
 
 ## Contributing
-Contribution directions go here.
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Run rubocop lint (`rubocop -R --format simple`)
+5. Run rspec tests (`bundle exec rspec`)
+6. Push your branch (`git push origin my-new-feature`)
+7. Create a new Pull Request
 
 ## About ##
 
@@ -31,7 +38,7 @@ This project is maintained by [Hugo Farji](https://github.com/hdf1986), [Ignacio
 
 ## License
 
-**wor-paginate** is available under the MIT [license](https://raw.githubusercontent.com/Wolox/wor-authentication/master/LICENSE.md).
+**wor-paginate** is available under the MIT [license](https://raw.githubusercontent.com/Wolox/wor-paginate/master/LICENSE.md).
 
     Copyright (c) 2017 Wolox
 
