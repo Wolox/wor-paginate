@@ -189,7 +189,6 @@ DEPENDENCIES
   faker
   generator_spec
   kaminari
-  kaminari-activerecord
   rake (~> 10.0)
   rspec (~> 3.0)
   rspec-rails
