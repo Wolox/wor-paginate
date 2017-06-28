@@ -1,8 +1,9 @@
 module Wor
   module Paginate
     class Formatter
-      def self.format(content, count, total_count, page)
-        { items: content, count: count, total: total_count, page: page }
+      def self.format(adapter)
+        { items: adapter.paginated_content, count: adapter.count, total: adapter.total_count,
+          page: adapter.page }
       end
     end
   end
