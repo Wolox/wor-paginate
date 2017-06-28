@@ -14,5 +14,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 require 'byebug'
+gem 'database_cleaner'
+gem 'factory_girl_rails'
 gem 'kaminari'
 gem 'will_paginate'

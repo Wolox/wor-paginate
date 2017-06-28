@@ -4,15 +4,7 @@ RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
     context 'when paginating an ActiveModel with no previous pagination' do
       before do
-        DummyModel.delete_all # use db cleaner
-        # use factory girl for these:
-        DummyModel.create(name: 'hola', something: 1)
-        DummyModel.create(name: 'hola2', something: 2)
-        DummyModel.create(name: 'hola3', something: 3)
-        DummyModel.create(name: 'hola4', something: 2)
-        DummyModel.create(name: 'hola5', something: 3)
-        DummyModel.create(name: 'hola6', something: 2)
-        DummyModel.create(name: 'hola7', something: 3)
+        create_list(:dummy_model, 7)
         get :index
       end
 
@@ -40,15 +32,7 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating an ActiveModel paginated with kaminari' do
       before do
-        DummyModel.delete_all # use db cleaner
-        # use factory girl for these:
-        DummyModel.create(name: 'hola', something: 1)
-        DummyModel.create(name: 'hola2', something: 2)
-        DummyModel.create(name: 'hola3', something: 3)
-        DummyModel.create(name: 'hola4', something: 2)
-        DummyModel.create(name: 'hola5', something: 3)
-        DummyModel.create(name: 'hola6', something: 2)
-        DummyModel.create(name: 'hola7', something: 3)
+        create_list(:dummy_model, 7)
         get :index_kaminari
       end
 
@@ -75,15 +59,7 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating an ActiveModel paginated with will_paginate' do
       before do
-        DummyModel.delete_all # use db cleaner
-        # use factory girl for these:
-        DummyModel.create(name: 'hola', something: 1)
-        DummyModel.create(name: 'hola2', something: 2)
-        DummyModel.create(name: 'hola3', something: 3)
-        DummyModel.create(name: 'hola4', something: 2)
-        DummyModel.create(name: 'hola5', something: 3)
-        DummyModel.create(name: 'hola6', something: 2)
-        DummyModel.create(name: 'hola7', something: 3)
+        create_list(:dummy_model, 7)
         get :index_will_paginate
       end
 
@@ -111,8 +87,6 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating an array' do
       before do
-        DummyModel.delete_all # use db cleaner
-        # use factory girl for these:
         get :index_array
       end
 
