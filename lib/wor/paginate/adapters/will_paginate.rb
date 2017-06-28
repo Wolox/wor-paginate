@@ -1,3 +1,6 @@
+# Used when render_paginated is called with an ActiveModel directly, with will_paginate
+# already required. Something like
+### render_paginated DummyModel
 module Wor
   module Paginate
     module Adapters

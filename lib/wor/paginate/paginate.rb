@@ -4,10 +4,11 @@ module Wor
 
     def initialize
       self.adapters = [Adapters::KaminariAlreadyPaginated.new,
+                       Adapters::WillPaginateAlreadyPaginated.new,
                        Adapters::Kaminari.new,
                        Adapters::WillPaginate.new,
                        Adapters::ActiveModel.new,
-                       Adapters::Array.new]
+                       Adapters::Iterable.new]
     end
 
     def render_paginated(content)
