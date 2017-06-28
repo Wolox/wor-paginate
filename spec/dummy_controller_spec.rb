@@ -20,8 +20,9 @@ RSpec.describe DummyModelsController, type: :controller do
       response_json = JSON.parse(response.body)
         expect(response_json['items'].length).to be 5
       end
-      
+
       it 'responds with count' do
+        byebug
         response_json = JSON.parse(response.body)
         expect(response_json['count']).to be 5
       end

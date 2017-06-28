@@ -15,3 +15,4 @@ gemspec
 
 require 'byebug'
 gem 'kaminari'
+gem 'will_paginate'
