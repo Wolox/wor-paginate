@@ -6,6 +6,10 @@ class DummyModelsController < ApplicationController
     render_paginated DummyModel
   end
 
+  def index_scoped
+    render_paginated DummyModel.some_scope
+  end
+
   def index_array
     render_paginated [1,2,3,4,5,6,7]
   end
