@@ -1,115 +1,149 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
-    context 'when paginating an ActiveModel with no previous pagination' do
+    let!(:dummy_models) { create_list(:dummy_model, 7) }
+    let(:expected_list) do
+      dummy_models.first(5).map do |dummy|
+        { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
+      end
+    end
+    context 'when paginating an ActiveModel with no previous pagination but kaminari installed' do
       before do
-        create_list(:dummy_model, 7)
         get :index
       end
 
       it 'responds with items' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
       end
 
       it 'responds with count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['count']).to be 5
+        expect(response_body(response)['count']).to be 5
       end
 
       it 'responds with total_count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['total']).to be 7
+        expect(response_body(response)['total']).to be 7
       end
 
       it 'responds with page' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['page']).to be 0
+        expect(response_body(response)['page']).to be 1
+      end
+    end
+
+    context 'when paginating an ActiveModel  with no previous pagination but will_paginate installed' do
+      before do
+        allow_any_instance_of(Wor::Paginate::Adapters::Kaminari)
+          .to receive(:adapt?).and_return(false)
+        get :index
+      end
+
+      it 'responds with items' do
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
+      end
+
+      it 'responds with count' do
+        expect(response_body(response)['count']).to be 5
+      end
+
+      it 'responds with total_count' do
+        expect(response_body(response)['total']).to be 7
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['page']).to be 1
       end
     end
 
     context 'when paginating an ActiveModel with a scope' do
       before do
-        create_list(:dummy_model, 7)
-        get :index
+        # Requiring both kaminari and will_paginate breaks scope pagination
+        allow_any_instance_of(DummyModel::ActiveRecord_Relation)
+          .to receive(:per).and_return(DummyModel.some_scope.page(1).first(5))
+        allow_any_instance_of(Array).to receive(:total_count).and_return(7)
+        get :index_scoped
       end
 
       it 'responds with items' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
       end
 
       it 'responds with count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['count']).to be 5
+        expect(response_body(response)['count']).to be 5
       end
 
       it 'responds with total_count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['total']).to be 7
+        expect(response_body(response)['total']).to be 7
       end
 
       it 'responds with page' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['page']).to be 0
+        expect(response_body(response)['page']).to be 1
       end
     end
 
     context 'when paginating an ActiveModel paginated with kaminari' do
       before do
-        create_list(:dummy_model, 7)
         get :index_kaminari
       end
 
       it 'responds with items' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
       end
 
       it 'responds with count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['count']).to be 5
+        expect(response_body(response)['count']).to be 5
       end
 
       it 'responds with total_count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['total']).to be 7
+        expect(response_body(response)['total']).to be 7
       end
 
       it 'responds with page' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['page']).to be 0
+        expect(response_body(response)['page']).to be 1
       end
     end
 
     context 'when paginating an ActiveModel paginated with will_paginate' do
       before do
-        create_list(:dummy_model, 7)
         get :index_will_paginate
       end
 
       it 'responds with items' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
       end
 
       it 'responds with count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['count']).to be 5
+        expect(response_body(response)['count']).to be 5
       end
 
       it 'responds with total_count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['total']).to be 7
+        expect(response_body(response)['total']).to be 7
       end
 
       it 'responds with page' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['page']).to be 0
+        expect(response_body(response)['page']).to be 1
       end
     end
-
 
     context 'when paginating an array' do
       before do
@@ -117,24 +151,34 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with items' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq [1, 2, 3, 4, 5]
       end
 
       it 'responds with count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['count']).to be 5
+        expect(response_body(response)['count']).to be 5
       end
 
       it 'responds with total_count' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['total']).to be 7
+        expect(response_body(response)['total']).to be 7
       end
 
       it 'responds with page' do
-        response_json = JSON.parse(response.body)
-        expect(response_json['page']).to be 0
+        expect(response_body(response)['page']).to be 1
       end
+    end
+
+    context 'when paginating something that can\'t be paginated' do
+      it 'throws an exception' do
+        expect { get :index_exception }.to raise_error
+      end
+    end
+
+    def response_body(response)
+      JSON.parse(response.body)
     end
   end
 end

@@ -17,7 +17,7 @@ module Wor
 
     def paginate(content)
       adapter = find_adapter_for_content(content)
-      throw "No pagination adapter for class #{content.class}" unless adapter.present?
+      throw NoPaginationAdapter unless adapter.present?
       adapter.adapt(content, page, limit)
     end
 
@@ -26,7 +26,7 @@ module Wor
     end
 
     def page
-      params[:page] ? params[:page] : 0
+      params[:page] ? params[:page] : 1
     end
 
     def limit

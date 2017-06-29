@@ -1,0 +1,2 @@
+class NoPaginationAdapter < StandardError
+end

@@ -22,5 +22,4 @@ RSpec.configure do |config|
 end
 
 require 'rspec/rails'
-require 'timecop'
 require 'byebug'

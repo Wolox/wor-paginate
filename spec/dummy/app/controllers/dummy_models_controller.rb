@@ -1,5 +1,4 @@
 class DummyModelsController < ApplicationController
-  protect_from_forgery with: :exception
   include Wor::Paginate
 
   def index
@@ -12,6 +11,10 @@ class DummyModelsController < ApplicationController
 
   def index_array
     render_paginated [1,2,3,4,5,6,7]
+  end
+
+  def index_exception
+    render_paginated 5
   end
 
   def index_kaminari

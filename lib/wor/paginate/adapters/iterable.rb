@@ -10,7 +10,7 @@ module Wor
 
         def adapt(content, page, limit)
           content_array = content.to_a
-          sliced_content = content_array.slice(page * limit, limit)
+          sliced_content = content_array.slice((page - 1) * limit, limit)
           Wor::Paginate::Formatter.format(sliced_content, sliced_content.count,
                                           content_array.count, page)
         end
