@@ -9,7 +9,7 @@ RSpec.describe DummyModelsController, type: :controller do
         { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
       end
     end
-    context 'when paginating an ActiveModel with no previous pagination but kaminari installed' do
+    context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
       before do
         get :index
       end
@@ -35,7 +35,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveModel model with will_paginate installed' do
+    context 'when paginating an ActiveRecord model with will_paginate installed' do
       before do
         allow_any_instance_of(Wor::Paginate::Adapters::Kaminari)
           .to receive(:adapt?).and_return(false)
@@ -63,12 +63,9 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveModel with a scope' do
+    context 'when paginating an ActiveRecord with a scope' do
       before do
         # Requiring both kaminari and will_paginate breaks scope pagination
-        allow_any_instance_of(DummyModel::ActiveRecord_Relation)
-          .to receive(:per).and_return(DummyModel.some_scope.page(1).first(5))
-        allow_any_instance_of(Array).to receive(:total_count).and_return(7)
         get :index_scoped
       end
 
@@ -93,7 +90,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveModel paginated with kaminari' do
+    context 'when paginating an ActiveRecord paginated with kaminari' do
       before do
         get :index_kaminari
       end
@@ -119,7 +116,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveModel paginated with will_paginate' do
+    context 'when paginating an ActiveRecord paginated with will_paginate' do
       before do
         get :index_will_paginate
       end
