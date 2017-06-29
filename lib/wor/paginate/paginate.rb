@@ -7,14 +7,14 @@ module Wor
       Adapters::Iterable,
       Adapters::ActiveModel]
 
-    def render_paginated(content)
-      render json: paginate(content)
+    def render_paginated(content, options = {})
+      render json: paginate(content, options)
     end
 
-    def paginate(content)
+    def paginate(content, options = {})
       adapter = find_adapter_for_content(content)
       raise Exceptions::NoPaginationAdapter unless adapter.present?
-      Formatter.format(adapter)
+      Formatter.new.format(adapter, options)
     end
 
     def find_adapter_for_content(content)

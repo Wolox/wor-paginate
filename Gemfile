@@ -14,6 +14,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 require 'byebug'
+gem 'active_model_serializers', '~> 0.10.0'
 gem 'database_cleaner'
 gem 'factory_girl_rails'
 gem 'kaminari'

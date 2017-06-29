@@ -24,4 +24,8 @@ class DummyModelsController < ApplicationController
   def index_will_paginate
     render_paginated DummyModel.paginate(page: 1, per_page: 25)
   end
+
+  def index_each_serializer
+    render_paginated DummyModel, each_serializer: ReducedDummyModelSerializer
+  end
 end

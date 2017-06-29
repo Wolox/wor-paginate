@@ -201,6 +201,38 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
+    context 'when paginating an ActiveRecord with a custom serializer' do
+      let(:expected_list) do
+        dummy_models.first(5).map do |dummy|
+          { 'something' => dummy.something }
+        end
+      end
+
+      before do
+        get :index_each_serializer
+      end
+
+      it 'responds with items' do
+        expect(response_body(response)['items'].length).to be 5
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['items']).to eq expected_list
+      end
+
+      it 'responds with count' do
+        expect(response_body(response)['count']).to be 5
+      end
+
+      it 'responds with total_count' do
+        expect(response_body(response)['total']).to be 7
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['page']).to be 1
+      end
+    end
+
     def response_body(response)
       JSON.parse(response.body)
     end
