@@ -6,7 +6,9 @@ module Wor
     module Adapters
       class Kaminari
         def adapt?(content)
-          content.respond_to? :page
+          %i(page per).all? do |method|
+            content.respond_to? method
+          end
         end
 
         def adapt(content, page, limit)
