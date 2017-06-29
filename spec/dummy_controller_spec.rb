@@ -35,7 +35,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveModel  with no previous pagination but will_paginate installed' do
+    context 'when paginating an ActiveModel model with will_paginate installed' do
       before do
         allow_any_instance_of(Wor::Paginate::Adapters::Kaminari)
           .to receive(:adapt?).and_return(false)
@@ -173,7 +173,7 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating something that can\'t be paginated' do
       it 'throws an exception' do
-        expect { get :index_exception }.to raise_error
+        expect { get :index_exception }.to raise_error(Wor::Paginate::Exceptions::NoPaginationAdapter)
       end
     end
 
