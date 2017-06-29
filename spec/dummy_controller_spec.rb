@@ -170,7 +170,8 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating something that can\'t be paginated' do
       it 'throws an exception' do
-        expect { get :index_exception }.to raise_error(Wor::Paginate::Exceptions::NoPaginationAdapter)
+        expect { get :index_exception }
+          .to raise_error(Wor::Paginate::Exceptions::NoPaginationAdapter)
       end
     end
 
