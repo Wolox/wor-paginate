@@ -1,8 +1,9 @@
 module Wor
   module Paginate
     module Config
-      extend self
       attr_accessor :default_per_page, :default_page, :page_param, :per_page_param, :formatter
+
+      module_function
 
       def default_per_page
         @default_per_page ||= 25
