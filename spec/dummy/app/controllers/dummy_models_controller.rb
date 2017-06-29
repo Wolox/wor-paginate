@@ -6,11 +6,11 @@ class DummyModelsController < ApplicationController
   end
 
   def index_scoped
-    render_paginated DummyModel.some_scope
+    render_paginated DummyModel.some_scope.order(:id)
   end
 
   def index_array
-    render_paginated (1..28).to_a
+    render_paginated((1..28).to_a)
   end
 
   def index_exception
