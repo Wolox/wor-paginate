@@ -20,6 +20,10 @@ module Wor
       def per_page_param
         @per_page_param ||= :per_page
       end
+
+      def formatter
+        @formatter ||= Wor::Paginate::Formatter
+      end
     end
   end
 end

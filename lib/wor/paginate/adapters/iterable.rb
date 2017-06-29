@@ -29,6 +29,13 @@ module Wor
         def total_count
           @content.count
         end
+        
+        def adapt(content, page, limit)
+          content_array = content.to_a
+          sliced_content = content_array.slice((page - 1) * limit, limit)
+          Wor::Paginate::Config.formatter.format(sliced_content, sliced_content.count,
+                                                 content_array.count, page)
+        end
       end
     end
   end

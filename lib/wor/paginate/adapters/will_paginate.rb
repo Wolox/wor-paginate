@@ -28,6 +28,12 @@ module Wor
         def total_count
           paginated_content.count
         end
+
+        def adapt(content, page, limit)
+          to_paginate = content.paginate(page: page, per_page: limit)
+          Wor::Paginate::Config.formatter.format(to_paginate,
+                                                 to_paginate.to_a.size, to_paginate.count, page)
+        end
       end
     end
   end
