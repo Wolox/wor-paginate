@@ -10,7 +10,7 @@ class DummyModelsController < ApplicationController
   end
 
   def index_array
-    render_paginated [1,2,3,4,5,6,7]
+    render_paginated [1, 2, 3, 4, 5, 6, 7]
   end
 
   def index_exception

@@ -1,7 +1,11 @@
 AllCops:
   Exclude:
     - wor-paginate.gemspec
-    - spec/**/*
+    - spec/spy.rb
+    - spec/dummy/db/**/*
+    - spec/dummy/config/**/*
+    - spec/spec_helper.rb
+
 
 Documentation:
   Enabled: false
@@ -11,3 +15,8 @@ LineLength:
 
 FrozenStringLiteralComment:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
