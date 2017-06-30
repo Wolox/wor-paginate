@@ -3,12 +3,12 @@ module Wor
     attr_accessor :adapters
 
     def initialize
-      self.adapters = [Adapters::KaminariAlreadyPaginated.new,
-                       Adapters::WillPaginateAlreadyPaginated.new,
-                       Adapters::Kaminari.new,
-                       Adapters::WillPaginate.new,
-                       Adapters::ActiveModel.new,
-                       Adapters::Iterable.new]
+      self.adapters = [Adapters::KaminariAlreadyPaginated,
+                       Adapters::WillPaginateAlreadyPaginated,
+                       Adapters::Kaminari,
+                       Adapters::WillPaginate,
+                       Adapters::Iterable,
+                       Adapters::ActiveModel]
     end
 
     def render_paginated(content)
@@ -18,11 +18,13 @@ module Wor
     def paginate(content)
       adapter = find_adapter_for_content(content)
       raise Exceptions::NoPaginationAdapter unless adapter.present?
-      adapter.adapt(content, page, limit)
+      Formatter.format(adapter)
     end
 
     def find_adapter_for_content(content)
-      adapters.find { |possible_adapter| possible_adapter.adapt? content }
+      @adapters.map do |possible_adapter|
+        possible_adapter.new(content, page, limit)
+      end.find(&:adapt?)
     end
 
     def page
