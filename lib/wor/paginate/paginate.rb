@@ -3,6 +3,7 @@ module Wor
     attr_accessor :adapters
 
     def initialize
+      # TODO: Move this to a constant
       self.adapters = [Adapters::KaminariAlreadyPaginated,
                        Adapters::WillPaginateAlreadyPaginated,
                        Adapters::Kaminari,
