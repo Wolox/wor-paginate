@@ -37,6 +37,38 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
+    context 'when paginating with page and limit params' do
+      context 'with a particular limit passed by option' do
+        let(:expected_list) do
+          dummy = dummy_models.third
+          [{ 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }]
+        end
+
+        before do
+          get :index_with_params
+        end
+
+        it 'responds with items' do
+          expect(response_body(response)['items'].length).to be 1
+        end
+
+        it 'responds with valid items' do
+          expect(response_body(response)['items']).to eq expected_list
+        end
+
+        it 'responds with count' do
+          expect(response_body(response)['count']).to be 1
+        end
+
+        it 'responds with total_count' do
+          expect(response_body(response)['total']).to be 28
+        end
+
+        it 'responds with page' do
+          expect(response_body(response)['page']).to be 3
+        end
+      end
+    end
     context 'when paginating an ActiveRecord model with will_paginate installed' do
       before do
         allow_any_instance_of(Wor::Paginate::Adapters::Kaminari)
@@ -203,7 +235,7 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'when paginating an ActiveRecord with a custom serializer' do
       let(:expected_list) do
-        dummy_models.first(5).map do |dummy|
+        dummy_models.first(25).map do |dummy|
           { 'something' => dummy.something }
         end
       end
@@ -213,7 +245,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to be 5
+        expect(response_body(response)['items'].length).to be 25
       end
 
       it 'responds with valid items' do
@@ -221,11 +253,11 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with count' do
-        expect(response_body(response)['count']).to be 5
+        expect(response_body(response)['count']).to be 25
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be 7
+        expect(response_body(response)['total']).to be 28
       end
 
       it 'responds with page' do

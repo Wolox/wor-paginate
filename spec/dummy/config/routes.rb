@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get 'index_kaminari'
       get 'index_exception'
       get 'index_scoped'
+      get 'index_with_params'
       get 'index_each_serializer'
     end
   end
