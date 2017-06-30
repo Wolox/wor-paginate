@@ -6,11 +6,11 @@ class DummyModelsController < ApplicationController
   end
 
   def index_scoped
-    render_paginated DummyModel.some_scope
+    render_paginated DummyModel.some_scope.order(:id)
   end
 
   def index_array
-    render_paginated [1, 2, 3, 4, 5, 6, 7]
+    render_paginated((1..28).to_a)
   end
 
   def index_exception
@@ -18,10 +18,10 @@ class DummyModelsController < ApplicationController
   end
 
   def index_kaminari
-    render_paginated DummyModel.page(1).per(5)
+    render_paginated DummyModel.page(1).per(25)
   end
 
   def index_will_paginate
-    render_paginated DummyModel.paginate(page: 1, per_page: 5)
+    render_paginated DummyModel.paginate(page: 1, per_page: 25)
   end
 end

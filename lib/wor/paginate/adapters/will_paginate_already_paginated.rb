@@ -24,8 +24,8 @@ module Wor
         end
 
         def adapt(content, page, _limit)
-          Wor::Paginate::Formatter.format(content, content.to_a.size,
-                                          content.total_entries, page)
+          Wor::Paginate::Config.formatter.format(content, content.to_a.size,
+                                                 content.total_entries, page)
         end
 
         def paginated_content

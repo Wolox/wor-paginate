@@ -28,11 +28,11 @@ module Wor
     end
 
     def page
-      params[:page] ? params[:page] : 1
+      params[Config.page_param] ? params[Config.page_param] : Config.default_page
     end
 
     def limit
-      params[:limit] ? params[:limit] : 5
+      params[Config.per_page_param] ? params[Config.per_page_param] : Config.default_per_page
     end
   end
 end

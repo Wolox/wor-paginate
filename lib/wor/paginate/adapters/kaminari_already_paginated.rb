@@ -32,6 +32,11 @@ module Wor
         def total_count
           @content.total_count
         end
+
+        def adapt(content, page, _limit)
+          Wor::Paginate::Config.formatter.format(content, content.count,
+                                                 content.total_count, page)
+        end
       end
     end
   end
