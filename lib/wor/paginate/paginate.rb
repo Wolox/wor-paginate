@@ -1,15 +1,11 @@
 module Wor
   module Paginate
-    attr_accessor :adapters
-
-    def initialize
-      self.adapters = [Adapters::KaminariAlreadyPaginated,
-                       Adapters::WillPaginateAlreadyPaginated,
-                       Adapters::Kaminari,
-                       Adapters::WillPaginate,
-                       Adapters::Iterable,
-                       Adapters::ActiveModel]
-    end
+    ADAPTERS = [Adapters::KaminariAlreadyPaginated,
+      Adapters::WillPaginateAlreadyPaginated,
+      Adapters::Kaminari,
+      Adapters::WillPaginate,
+      Adapters::Iterable,
+      Adapters::ActiveModel]
 
     def render_paginated(content)
       render json: paginate(content)
@@ -22,7 +18,7 @@ module Wor
     end
 
     def find_adapter_for_content(content)
-      @adapters.map do |possible_adapter|
+      ADAPTERS.map do |possible_adapter|
         possible_adapter.new(content, page, limit)
       end.find(&:adapt?)
     end
