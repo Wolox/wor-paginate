@@ -1,4 +1,3 @@
-
 module Wor
   module Paginate
     module Adapters
@@ -13,11 +12,6 @@ module Wor
 
         def adapt?
           required_methods.all? { |method| @content.respond_to? method }
-        end
-
-        def adapt
-          Wor::Paginate::Config.formatter.format(paginated_content,
-                                                 count, total_count, @page)
         end
 
         def required_methods

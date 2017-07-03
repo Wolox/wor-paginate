@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'spec_helper'
 RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
@@ -307,5 +306,35 @@ RSpec.describe DummyModelsController, type: :controller do
     def response_body(response)
       JSON.parse(response.body)
     end
+
+    context 'when paginating an ActiveRecord with a custom formatter' do
+      let(:expected_list) do
+        dummy_models.first(25).map do |dummy|
+          { 'something' => dummy.something,
+            'id' => dummy.id,
+            'name' => dummy.name }
+        end
+      end
+
+      before do
+        get :index_custom_formatter
+      end
+
+      it 'doesn\'t responds with items in the default key' do
+        expect(response_body(response)['items']).to be_nil
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['current']).to be 1
+      end
+    end
+  end
+
+  def response_body(response)
+    JSON.parse(response.body)
   end
 end
