@@ -3,17 +3,11 @@
 module Wor
   module Paginate
     module Adapters
-      class Iterable
+      class Iterable < BaseAdapter
         attr_reader :page
 
-        def initialize(content, page, limit)
-          @content = content
-          @page = page
-          @limit = limit
-        end
-
-        def adapt?
-          @content.respond_to? :to_a
+        def required_methods
+          [:to_a]
         end
 
         def paginated_content
@@ -30,11 +24,8 @@ module Wor
           @content.count
         end
 
-        def adapt(content, page, limit)
-          content_array = content.to_a
-          sliced_content = content_array.slice((page - 1) * limit, limit)
-          Wor::Paginate::Config.formatter.format(sliced_content, sliced_content.count,
-                                                 content_array.count, page)
+        def total_pages
+          (total_count / @limit.to_f).ceil
         end
       end
     end

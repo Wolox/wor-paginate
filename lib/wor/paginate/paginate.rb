@@ -14,7 +14,7 @@ module Wor
     def paginate(content, options = {})
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter unless adapter.present?
-      Formatter.new.format(adapter, options)
+      Formatter.new(adapter, options).format
     end
 
     def find_adapter_for_content(content, options)

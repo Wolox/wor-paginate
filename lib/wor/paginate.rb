@@ -1,3 +1,4 @@
+require_relative 'paginate/adapters/base_adapter'
 require_relative 'paginate/adapters/active_model'
 require_relative 'paginate/adapters/iterable'
 require_relative 'paginate/adapters/kaminari'

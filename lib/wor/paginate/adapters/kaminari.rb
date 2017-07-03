@@ -4,19 +4,9 @@
 module Wor
   module Paginate
     module Adapters
-      class Kaminari
-        attr_reader :page
-
-        def initialize(content, page, limit)
-          @content = content
-          @page = page
-          @limit = limit
-        end
-
-        def adapt?
-          %i(page per).all? do |method|
-            @content.respond_to? method
-          end
+      class Kaminari < Wor::Paginate::Adapters::BaseAdapter
+        def required_methods
+          %i(page per)
         end
 
         def paginated_content
@@ -31,11 +21,8 @@ module Wor
           paginated_content.total_count
         end
 
-        def adapt(content, page, limit)
-          to_paginate = content.page(page).per(limit)
-          Wor::Paginate::Config.formatter.format(to_paginate,
-                                                 to_paginate.count,
-                                                 to_paginate.total_count, page)
+        def total_pages
+          paginated_content.total_pages
         end
       end
     end
