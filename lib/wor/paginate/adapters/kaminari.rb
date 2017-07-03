@@ -14,7 +14,7 @@ module Wor
         end
 
         def adapt?
-          %i[page per].all? do |method|
+          %i(page per).all? do |method|
             @content.respond_to? method
           end
         end

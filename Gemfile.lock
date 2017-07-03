@@ -196,7 +196,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   bundler (~> 1.13)
-  byebug (~> 9.0)
+  byebug
   codeclimate-test-reporter (~> 1.0.0)
   database_cleaner
   factory_girl_rails

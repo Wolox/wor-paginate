@@ -1,11 +1,11 @@
 module Wor
   module Paginate
     ADAPTERS = [Adapters::KaminariAlreadyPaginated,
-      Adapters::WillPaginateAlreadyPaginated,
-      Adapters::Kaminari,
-      Adapters::WillPaginate,
-      Adapters::Iterable,
-      Adapters::ActiveModel]
+                Adapters::WillPaginateAlreadyPaginated,
+                Adapters::Kaminari,
+                Adapters::WillPaginate,
+                Adapters::Iterable,
+                Adapters::ActiveModel].freeze
 
     def render_paginated(content, options = {})
       render json: paginate(content, options)
