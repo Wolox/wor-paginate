@@ -13,7 +13,8 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-require 'byebug'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'byebug'
 gem 'database_cleaner'
 gem 'factory_girl_rails'
 gem 'kaminari'

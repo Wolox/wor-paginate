@@ -17,11 +17,19 @@ class DummyModelsController < ApplicationController
     render_paginated 5
   end
 
+  def index_with_params
+    render_paginated DummyModel, page: 3, limit: 1
+  end
+
   def index_kaminari
     render_paginated DummyModel.page(1).per(25)
   end
 
   def index_will_paginate
     render_paginated DummyModel.paginate(page: 1, per_page: 25)
+  end
+
+  def index_each_serializer
+    render_paginated DummyModel, each_serializer: ReducedDummyModelSerializer
   end
 end

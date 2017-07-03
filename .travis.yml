@@ -7,8 +7,9 @@ rvm:
 install:
   - gem install bundler
   - bundle install --retry=3
+  - bundle exec rake db:migrate RAILS_ENV=test -f spec/dummy/Rakefile
 
 script:
-  - bundle exec rubocop -R --format simple
+  - bundle exec rubocop --format simple
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter
