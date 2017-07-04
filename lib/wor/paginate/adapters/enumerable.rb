@@ -1,9 +1,9 @@
-# Used when render_paginated is called with an iterable, something like
+# Used when render_paginated is called with an Enumerable, something like
 ### render_paginated [1,2,3,4]
 module Wor
   module Paginate
     module Adapters
-      class Iterable < BaseAdapter
+      class Enumerable < Adapter
         attr_reader :page
 
         def required_methods

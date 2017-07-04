@@ -4,7 +4,7 @@
 module Wor
   module Paginate
     module Adapters
-      class ActiveModel < Wor::Paginate::Adapters::BaseAdapter
+      class ActiveModel < Wor::Paginate::Adapters::Adapter
         attr_reader :page
 
         def adapt?
