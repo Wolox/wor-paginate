@@ -9,6 +9,14 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
     end
 
+    context 'with param page in -1' do
+      it 'throws exception' do
+        expect do
+          get :index, params: { page: -1 }
+        end.to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
+      end
+    end
+
     context 'With param page in 2' do
       let(:expected_list) do
         dummy_models.slice(25, 25).first(3).map do |dummy|

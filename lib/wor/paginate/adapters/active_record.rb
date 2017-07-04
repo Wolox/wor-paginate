@@ -30,7 +30,7 @@ module Wor
         private
 
         def offset
-          raise InvalidPageNumber if @page.negative?
+          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.negative?
           ((@page - 1).negative? ? 0 : @page - 1) * @limit
         end
       end
