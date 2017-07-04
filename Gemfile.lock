@@ -185,7 +185,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    will_paginate (3.1.6)
 
 PLATFORMS
   ruby
@@ -206,7 +205,6 @@ DEPENDENCIES
   simplecov
   sqlite3
   webmock
-  will_paginate
   wor-paginate!
 
 BUNDLED WITH
