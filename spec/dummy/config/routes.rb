@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :dummy_models_without_gems, only: [:index]
+  resources :dummy_models_without_gems, only: [:index] do
+    collection do
+      get :index_paginated
+    end
+  end
   resources :dummy_models, only: [:index] do
     collection do
       get 'index_array'

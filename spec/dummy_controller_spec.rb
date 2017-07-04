@@ -317,7 +317,6 @@ RSpec.describe DummyModelsController, type: :controller do
       it 'responds with valid page' do
         expect(response_body(response)['items']).to eq expected_list
       end
-
     end
   end
 end
