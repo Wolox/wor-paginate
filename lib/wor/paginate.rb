@@ -1,5 +1,5 @@
 require_relative 'paginate/adapters/adapter'
-require_relative 'paginate/adapters/active_model'
+require_relative 'paginate/adapters/active_record'
 require_relative 'paginate/adapters/enumerable'
 require_relative 'paginate/adapters/kaminari'
 require_relative 'paginate/adapters/will_paginate'
