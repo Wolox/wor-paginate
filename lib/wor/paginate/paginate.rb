@@ -5,7 +5,7 @@ module Wor
                 Adapters::Kaminari,
                 Adapters::WillPaginate,
                 Adapters::Enumerable,
-                Adapters::ActiveModel].freeze
+                Adapters::ActiveRecord].freeze
 
     def render_paginated(content, options = {})
       render json: paginate(content, options)

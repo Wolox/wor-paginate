@@ -1,10 +1,10 @@
-# Used when render_paginated is called with an ActiveModel directly, without a
+# Used when render_paginated is called with an ActiveRecord directly, without a
 # pagination gem like kaminari or will_paginate
 ### render_paginated DummyModel
 module Wor
   module Paginate
     module Adapters
-      class ActiveModel < Wor::Paginate::Adapters::Adapter
+      class ActiveRecord < Wor::Paginate::Adapters::Adapter
         attr_reader :page
 
         def adapt?
