@@ -318,9 +318,6 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['items']).to eq expected_list
       end
 
-      it 'responds with page' do
-        expect(response_body(response)['current']).to be 1
-      end
     end
   end
 end
