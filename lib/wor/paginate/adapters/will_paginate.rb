@@ -4,17 +4,11 @@
 module Wor
   module Paginate
     module Adapters
-      class WillPaginate
+      class WillPaginate < Wor::Paginate::Adapters::Adapter
         attr_reader :page
 
-        def initialize(content, page, limit)
-          @content = content
-          @page = page
-          @limit = limit
-        end
-
-        def adapt?
-          @content.respond_to? :paginate
+        def required_methods
+          [:paginate]
         end
 
         def paginated_content
@@ -29,10 +23,8 @@ module Wor
           paginated_content.count
         end
 
-        def adapt(content, page, limit)
-          to_paginate = content.paginate(page: page, per_page: limit)
-          Wor::Paginate::Config.formatter.format(to_paginate,
-                                                 to_paginate.to_a.size, to_paginate.count, page)
+        def total_pages
+          paginated_content.total_pages
         end
       end
     end

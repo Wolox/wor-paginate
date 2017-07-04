@@ -4,7 +4,7 @@ module Wor
                 Adapters::WillPaginateAlreadyPaginated,
                 Adapters::Kaminari,
                 Adapters::WillPaginate,
-                Adapters::Iterable,
+                Adapters::Enumerable,
                 Adapters::ActiveModel].freeze
 
     def render_paginated(content, options = {})
@@ -14,7 +14,11 @@ module Wor
     def paginate(content, options = {})
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter unless adapter.present?
-      Formatter.new.format(adapter, options)
+      formatter_class(options).new(adapter, options).format
+    end
+
+    def formatter_class(options)
+      options[:formatter].presence || Formatter
     end
 
     def find_adapter_for_content(content, options)

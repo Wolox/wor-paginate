@@ -32,4 +32,8 @@ class DummyModelsController < ApplicationController
   def index_each_serializer
     render_paginated DummyModel, each_serializer: ReducedDummyModelSerializer
   end
+
+  def index_custom_formatter
+    render_paginated DummyModel, formatter: CustomFormatter
+  end
 end

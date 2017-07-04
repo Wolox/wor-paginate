@@ -4,28 +4,14 @@
 module Wor
   module Paginate
     module Adapters
-      class WillPaginateAlreadyPaginated
+      class WillPaginateAlreadyPaginated < Wor::Paginate::Adapters::Adapter
         attr_reader :page
 
-        def initialize(content, page, limit)
-          @content = content
-          @page = page
-          @limit = limit
-        end
-
-        def adapt?
+        def required_methods
           # Methods will_paginate adds to ActiveRecord relations:
           ### [:current_page, :total_entries, :total_entries=, :find_last, :current_page=,
           ### :scoped, :total_pages, :next_page, :previous_page, :out_of_bounds?]
-          %i(previous_page out_of_bounds? total_entries=
-             total_pages current_page=).all? do |method|
-            @content.respond_to? method
-          end
-        end
-
-        def adapt(content, page, _limit)
-          Wor::Paginate::Config.formatter.format(content, content.to_a.size,
-                                                 content.total_entries, page)
+          %i(previous_page out_of_bounds? total_entries= total_pages current_page=)
         end
 
         def paginated_content

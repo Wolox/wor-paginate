@@ -4,14 +4,8 @@
 module Wor
   module Paginate
     module Adapters
-      class ActiveModel
+      class ActiveModel < Wor::Paginate::Adapters::Adapter
         attr_reader :page
-
-        def initialize(content, page, limit)
-          @content = content
-          @page = page
-          @limit = limit
-        end
 
         def adapt?
           return false if @content.is_a? Enumerable

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'spec_helper'
 RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
@@ -29,11 +28,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be dummy_models.count
+        expect(response_body(response)['total_count']).to be dummy_models.count
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to be Wor::Paginate::Config.default_page
+        expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
     end
 
@@ -61,11 +65,15 @@ RSpec.describe DummyModelsController, type: :controller do
         end
 
         it 'responds with total_count' do
-          expect(response_body(response)['total']).to be 28
+          expect(response_body(response)['total_count']).to be 28
+        end
+
+        it 'responds with total_pages' do
+          expect(response_body(response)['total_pages']).to be dummy_models.count
         end
 
         it 'responds with page' do
-          expect(response_body(response)['page']).to be 3
+          expect(response_body(response)['current_page']).to be 3
         end
       end
     end
@@ -93,11 +101,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be dummy_models.count
+        expect(response_body(response)['total_count']).to be dummy_models.count
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to(
+        expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
       end
@@ -124,11 +137,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be 28
+        expect(response_body(response)['total_count']).to be 28
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to(
+        expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
       end
@@ -156,11 +174,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be dummy_models.count
+        expect(response_body(response)['total_count']).to be dummy_models.count
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to(
+        expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
       end
@@ -188,11 +211,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be dummy_models.count
+        expect(response_body(response)['total_count']).to be dummy_models.count
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to(
+        expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
       end
@@ -216,11 +244,16 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be 28
+        expect(response_body(response)['total_count']).to be 28
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to(
+        expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
       end
@@ -257,16 +290,51 @@ RSpec.describe DummyModelsController, type: :controller do
       end
 
       it 'responds with total_count' do
-        expect(response_body(response)['total']).to be 28
+        expect(response_body(response)['total_count']).to be 28
+      end
+
+      it 'responds with total_pages' do
+        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
+        expect(response_body(response)['total_pages']).to be total_pages
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page']).to be 1
+        expect(response_body(response)['current_page']).to be 1
       end
     end
 
     def response_body(response)
       JSON.parse(response.body)
     end
+
+    context 'when paginating an ActiveRecord with a custom formatter' do
+      let(:expected_list) do
+        dummy_models.first(25).map do |dummy|
+          { 'something' => dummy.something,
+            'id' => dummy.id,
+            'name' => dummy.name }
+        end
+      end
+
+      before do
+        get :index_custom_formatter
+      end
+
+      it 'doesn\'t responds with items in the default key' do
+        expect(response_body(response)['items']).to be_nil
+      end
+
+      it 'responds with valid items' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['current']).to be 1
+      end
+    end
+  end
+
+  def response_body(response)
+    JSON.parse(response.body)
   end
 end

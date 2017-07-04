@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'index_scoped'
       get 'index_with_params'
       get 'index_each_serializer'
+      get 'index_custom_formatter'
     end
   end
 end
