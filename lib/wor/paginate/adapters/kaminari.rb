@@ -13,17 +13,11 @@ module Wor
           @paginated_content ||= @content.page(@page).per(@limit)
         end
 
-        def count
-          paginated_content.count
-        end
+        delegate :count, to: :paginated_content
 
-        def total_count
-          paginated_content.total_count
-        end
+        delegate :total_count, to: :paginated_content
 
-        def total_pages
-          paginated_content.total_pages
-        end
+        delegate :total_pages, to: :paginated_content
       end
     end
   end
