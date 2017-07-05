@@ -2,8 +2,8 @@ module Wor
   module Paginate
     ADAPTERS = [Adapters::KaminariAlreadyPaginated,
                 Adapters::WillPaginateAlreadyPaginated,
-                Adapters::Kaminari,
                 Adapters::WillPaginate,
+                Adapters::Kaminari,
                 Adapters::Enumerable,
                 Adapters::ActiveRecord].freeze
 

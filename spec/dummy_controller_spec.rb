@@ -77,44 +77,6 @@ RSpec.describe DummyModelsController, type: :controller do
         end
       end
     end
-    context 'when paginating an ActiveRecord model with will_paginate installed' do
-      before do
-        allow_any_instance_of(Wor::Paginate::Adapters::Kaminari)
-          .to receive(:adapt?).and_return(false)
-        get :index
-      end
-
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
-
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
-      end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to(
-          be Wor::Paginate::Config.default_page
-        )
-      end
-    end
 
     context 'when paginating an ActiveRecord with a scope' do
       before do
@@ -189,14 +151,14 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    context 'when paginating an ActiveRecord paginated with will_paginate' do
+    context 'when paginating an ActiveRecord paginated with kaminari' do
       before do
         get :index_will_paginate
       end
 
       it 'responds with items' do
         expect(response_body(response)['items'].length).to(
-          be Wor::Paginate::Config.default_per_page
+          be(Wor::Paginate::Config.default_per_page)
         )
       end
 
@@ -332,9 +294,5 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['current']).to be 1
       end
     end
-  end
-
-  def response_body(response)
-    JSON.parse(response.body)
   end
 end

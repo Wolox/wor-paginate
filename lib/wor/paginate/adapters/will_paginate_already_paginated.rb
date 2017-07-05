@@ -15,15 +15,16 @@ module Wor
         end
 
         def paginated_content
-          @content
+          @paginated_content ||= @content.limit(nil).offset(0)
+                                         .paginate(page: @page, per_page: @limit)
         end
 
         def count
-          @content.to_a.size
+          paginated_content.to_a.size
         end
 
         def total_count
-          @content.total_entries
+          paginated_content.total_entries
         end
       end
     end
