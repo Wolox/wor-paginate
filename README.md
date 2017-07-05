@@ -34,10 +34,8 @@ The basic use case is to paginate using default values. This is achieved by incl
   end
 ```
 The first parameter to render_paginated can be multiple things:
-* ApplicationRecord
-* Scoped ApplicationRecord
-* ActiveRecord::Relation
-* Enumerables (for example, arrays)
+* ActiveRecord/ActiveRecord::Relation
+* Enumerables (for example, arrays and ranges)
 * Pre-paginated kaminari or will_paginate relations (original pagination will be ignored)
 
 The response to the index will then be
@@ -64,7 +62,8 @@ The response to the index will then be
   "count": 25,
   "total_pages": 2,
   "total_count": 28,
-  "current_page": 1
+  "current_page": 1,
+
 }
 ```
 
@@ -73,6 +72,13 @@ The amount of items is passed through the `limit` option of the `render_paginate
 The default serializer and formatter will be used.
 
 ### Customizing output
+#### Custom serializers
+A custom serializer for each object can be passed using the `each_serializer` option:
+```ruby
+render_paginated DummyModel, each_serializer: CustomDummyModelSerializer
+```
+where the serializer is just an `ActiveModel::Serializer`.
+
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
@@ -97,13 +103,6 @@ Available helper methods are:
 * `total_pages`: number of pages given the current limit (post-pagination)
 * `paginated_content`: its class depends on the original content passed to render_paginated, it's the paginated but not yet serialized content.
 * `serialized_content`: array with all the items after going through the serializer (either the default or a supplied one)
-
-#### Custom serializers
-A custom serializer for each object can be passed using the `each_serializer` option:
-```ruby
-render_paginated DummyModel, each_serializer: CustomDummyModelSerializer
-```
-where the serializer is just an `ActiveModel::Serializer`.
 
 ### Working with kaminari or will_paginate
 If either kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
