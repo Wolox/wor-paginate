@@ -1,14 +1,12 @@
 # Wor::Paginate
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over kaminari and will_paginate.
 
 ## Installation
-Add this line to your application's Gemfile:
+
+Add the following line to your application's Gemfile:
 
 ```ruby
-gem 'wor-paginate'
+gem 'wor-requests'
 ```
 
 And then execute:
@@ -21,12 +19,101 @@ Or install it yourself as:
 $ gem install wor-paginate
 ```
 
+Then you can run `rails generate wor:paginate:install` to create the initializer for configuration details, including default formatter class, page and limit params and default page number.
+
+## Usage
+### Basic usage
+The basic use case is to paginate using default values. This is achieved by including the module in a controller and calling render_paginate in the method that needs pagination to be done.
+```ruby
+  class DummyModelsController < ApplicationController
+    include Wor::Paginate
+
+    def index
+        render_paginated DummyModel
+    end
+  end
+```
+The first parameter to render_paginated can be multiple things:
+* ApplicationRecord
+* Scoped ApplicationRecord
+* ActiveRecord::Relation
+* Enumerables (for example, arrays)
+* Pre-paginated kaminari or will_paginate relations (original pagination will be ignored)
+
+The response to the index will then be
+```json
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "1c",
+      "something": 27
+    },
+    {
+      "id": 2,
+      "name": "i",
+      "something": 68
+    },
+    ...
+    {
+      "id": 25,
+      "name": "2m",
+      "something": 32
+    }
+  ],
+  "count": 25,
+  "total_pages": 2,
+  "total_count": 28,
+  "current_page": 1
+}
+```
+
+Page number is passed through the `page` option of the `render_paginated` method. If none is supplied, `params[:page]` will be used (or the default parameter configured in the initializer). Default is 1.
+The amount of items is passed through the `limit` option of the `render_paginated` method. If none is supplied, `params[:limit]` will be used (or the default parameter configured in the initializer). Default is 25.
+The default serializer and formatter will be used.
+
+### Customizing output
+#### Custom formatters
+A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
+```ruby
+render_paginated DummyModel, formatter: CustomFormatter
+```
+or it can also be set as a default in the initializer.
+
+A new formatter can be created inheriting from the default one. The `format` method should be redefined returning something that can be converted to json.
+
+```ruby
+class CustomFormatter < Wor::Paginate::Formatter
+  def format
+    { page: serialized_content, current: current_page }
+  end
+end
+```
+
+Available helper methods are:
+* `current_page`: integer with the current page
+* `count`: number of items in the page (post-pagination)
+* `total_count`: number of total items (pre-pagination)
+* `total_pages`: number of pages given the current limit (post-pagination)
+* `paginated_content`: its class depends on the original content passed to render_paginated, it's the paginated but not yet serialized content.
+* `serialized_content`: array with all the items after going through the serializer (either the default or a supplied one)
+
+#### Custom serializers
+A custom serializer for each object can be passed using the `each_serializer` option:
+```ruby
+render_paginated DummyModel, each_serializer: CustomDummyModelSerializer
+```
+where the serializer is just an `ActiveModel::Serializer`.
+
+### Working with kaminari or will_paginate
+If either kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
+
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Run rubocop lint (`rubocop -R --format simple`)
+4. Run rubocop lint (`bundle exec rubocop -R --format simple`)
 5. Run rspec tests (`bundle exec rspec`)
 6. Push your branch (`git push origin my-new-feature`)
 7. Create a new Pull Request
