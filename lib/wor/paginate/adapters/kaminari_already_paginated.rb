@@ -12,7 +12,7 @@ module Wor
         end
 
         def paginated_content
-          @content
+          @paginated_content ||= @content.page(@page).per(@limit)
         end
 
         def count

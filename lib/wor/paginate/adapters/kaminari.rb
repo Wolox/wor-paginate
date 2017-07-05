@@ -6,7 +6,7 @@ module Wor
     module Adapters
       class Kaminari < Wor::Paginate::Adapters::Adapter
         def required_methods
-          %i(page per)
+          %i(page)
         end
 
         def paginated_content
