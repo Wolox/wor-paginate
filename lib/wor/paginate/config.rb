@@ -16,9 +16,14 @@ module Wor
           instance_variable_get("@#{key}") || instance_variable_set("@#{key}", value)
         end
 
-        define_method "#{key}=" do |_v|
-          instance_variable_get("@#{key}")
+        define_method "#{key}=" do |v|
+          instance_variable_set("@#{key}", v)
         end
+      end
+
+      # This is mostly useful for the tests
+      def reset!
+        DEFAULTS_CONFIGS.each { |k, v| instance_variable_set("@#{k}", v) }
       end
     end
   end
