@@ -12,11 +12,11 @@ module Wor
         end
 
         def paginated_content
-          @content.offset(offset).limit(@limit)
+          @paginated_content ||= @content.offset(offset).limit(@limit)
         end
 
         def count
-          @limit
+          paginated_content.count
         end
 
         def total_count
@@ -30,8 +30,8 @@ module Wor
         private
 
         def offset
-          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.negative?
-          ((@page - 1).negative? ? 0 : @page - 1) * @limit
+          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.to_i.negative?
+          ((@page.to_i - 1).negative? ? 0 : @page.to_i - 1) * @limit
         end
       end
     end

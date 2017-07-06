@@ -29,7 +29,7 @@ module Wor
 
     def page(options)
       return options[:page] if options[:page].present?
-      params[Config.page_param] ? params[Config.page_param].to_i : Config.default_page
+      params[Config.page_param] ? params[Config.page_param] : Config.default_page
     end
 
     def limit(options)

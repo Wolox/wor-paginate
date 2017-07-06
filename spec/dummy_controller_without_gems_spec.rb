@@ -2,6 +2,11 @@
 require 'spec_helper'
 RSpec.describe DummyModelsWithoutGemsController, type: :controller do
   describe '#index' do
+    before do
+      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
+        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
+      end
+    end
     let!(:dummy_models) { create_list(:dummy_model, 28) }
     let(:expected_list) do
       dummy_models.first(25).map do |dummy|
@@ -30,17 +35,19 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be(DummyModel.count - Wor::Paginate::Config.default_per_page)
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
+        expect(response_body(response)['count']).to(
+          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
+        )
       end
 
       it 'responds with total_count' do
@@ -63,13 +70,13 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -96,13 +103,13 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -133,6 +140,12 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
     end
 
+    before do
+      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
+        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
+      end
+    end
+
     context 'with param page in -1' do
       it 'throws exception' do
         expect do
@@ -154,17 +167,19 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be(DummyModel.count - Wor::Paginate::Config.default_per_page)
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
+        expect(response_body(response)['count']).to(
+          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
+        )
       end
 
       it 'responds with total_count' do
@@ -187,13 +202,13 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -220,13 +235,13 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
       end
 
       it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
       it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
