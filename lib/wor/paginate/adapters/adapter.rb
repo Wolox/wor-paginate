@@ -30,9 +30,7 @@ module Wor
           raise NotImplementedError
         end
 
-        def total_pages
-          paginated_content.total_pages
-        end
+        delegate :total_pages, to: :paginated_content
       end
     end
   end

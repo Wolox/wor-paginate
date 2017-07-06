@@ -1,28 +1,29 @@
 module Wor
   module Paginate
     module Config
-      attr_accessor :default_per_page, :default_page, :page_param, :per_page_param, :formatter
+      DEFAULTS_CONFIGS = {
+        default_per_page: 25,
+        default_page: 1,
+        page_param: :page,
+        per_page_param: :per_page,
+        formatter: Wor::Paginate::Formatter
+      }.freeze
 
       module_function
 
-      def default_per_page
-        @default_per_page ||= 25
+      DEFAULTS_CONFIGS.each do |key, value|
+        define_method key do
+          instance_variable_get("@#{key}") || instance_variable_set("@#{key}", value)
+        end
+
+        define_method "#{key}=" do |v|
+          instance_variable_set("@#{key}", v)
+        end
       end
 
-      def default_page
-        @default_page ||= 1
-      end
-
-      def page_param
-        @page_param ||= :page
-      end
-
-      def per_page_param
-        @per_page_param ||= :per_page
-      end
-
-      def formatter
-        @formatter ||= Wor::Paginate::Formatter
+      # This is mostly useful for the tests
+      def reset!
+        DEFAULTS_CONFIGS.each { |k, v| instance_variable_set("@#{k}", v) }
       end
     end
   end
