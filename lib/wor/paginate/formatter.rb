@@ -9,7 +9,7 @@ module Wor
       end
 
       def format
-        { items: serialized_content, count: count, total_pages: total_pages,
+        { page: serialized_content, count: count, total_pages: total_pages,
           total_count: total_count, current_page: current_page }
       end
 
