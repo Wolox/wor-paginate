@@ -2,13 +2,13 @@
 require 'spec_helper'
 RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
-    context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
-      let!(:dummy_models) { create_list(:dummy_model, 28) }
-      let(:expected_list) do
-        dummy_models.first(25).map do |dummy|
-          { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
-        end
+    let!(:dummy_models) { create_list(:dummy_model, 28) }
+    let(:expected_list) do
+      dummy_models.first(25).map do |dummy|
+        { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
       end
+    end
+    context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
       before do
         get :index
       end

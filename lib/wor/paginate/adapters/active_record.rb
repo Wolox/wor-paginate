@@ -15,9 +15,7 @@ module Wor
           @paginated_content ||= @content.offset(offset).limit(@limit)
         end
 
-        def count
-          paginated_content.count
-        end
+        delegate :count, to: :paginated_content
 
         def total_count
           @content.count
