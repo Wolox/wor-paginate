@@ -13,14 +13,14 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -52,12 +52,12 @@ RSpec.describe DummyModelsController, type: :controller do
           get :index_with_params
         end
 
-        it 'responds with items' do
-          expect(response_body(response)['items'].length).to be 1
+        it 'responds with page' do
+          expect(response_body(response)['page'].length).to be 1
         end
 
-        it 'responds with valid items' do
-          expect(response_body(response)['items']).to eq expected_list
+        it 'responds with valid page' do
+          expect(response_body(response)['page']).to eq expected_list
         end
 
         it 'responds with count' do
@@ -84,14 +84,14 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_scoped
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to(
           be Wor::Paginate::Config.default_per_page
         )
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -119,14 +119,14 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_kaminari
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to(
           be(Wor::Paginate::Config.default_per_page)
         )
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -156,14 +156,14 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_will_paginate
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to(
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to(
           be(Wor::Paginate::Config.default_per_page)
         )
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -193,12 +193,12 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_array
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to be
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to be
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq((1..25).to_a)
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq((1..25).to_a)
       end
 
       it 'responds with count' do
@@ -239,12 +239,12 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_each_serializer
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['items'].length).to be 25
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to be 25
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['items']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
       end
 
       it 'responds with count' do
@@ -282,12 +282,12 @@ RSpec.describe DummyModelsController, type: :controller do
         get :index_custom_formatter
       end
 
-      it 'doesn\'t responds with items in the default key' do
-        expect(response_body(response)['items']).to be_nil
+      it 'doesn\'t respond with page in the default key' do
+        expect(response_body(response)['page']).to be_nil
       end
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
+      it 'responds with valid page' do
+        expect(response_body(response)['items']).to eq expected_list
       end
 
       it 'responds with page' do
