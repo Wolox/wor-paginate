@@ -1,12 +1,11 @@
 # Wor::Paginate
-Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over kaminari and will_paginate.
+Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over [Kaminari](https://github.com/kaminari/kaminari) and [will_paginate](https://github.com/mislav/will_paginate).
 
 ## Installation
-
 Add the following line to your application's Gemfile:
 
 ```ruby
-gem 'wor-requests'
+gem 'wor-paginate'
 ```
 
 And then execute:
@@ -36,7 +35,7 @@ The basic use case is to paginate using default values. This is achieved by incl
 The first parameter to render_paginated can be multiple things:
 * ActiveRecord/ActiveRecord::Relation
 * Enumerables (for example, arrays and ranges)
-* Pre-paginated kaminari or will_paginate relations (original pagination will be ignored)
+* Pre-paginated Kaminari or will_paginate relations (original pagination will be ignored)
 
 The response to the index will then be
 ```json
@@ -77,7 +76,7 @@ A custom serializer for each object can be passed using the `each_serializer` op
 ```ruby
 render_paginated DummyModel, each_serializer: CustomDummyModelSerializer
 ```
-where the serializer is just an `ActiveModel::Serializer`.
+where the serializer is just an [`ActiveModel::Serializer`](https://github.com/rails-api/active_model_serializers).
 
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
@@ -104,8 +103,8 @@ Available helper methods are:
 * `paginated_content`: its class depends on the original content passed to render_paginated, it's the paginated but not yet serialized content.
 * `serialized_content`: array with all the items after going through the serializer (either the default or a supplied one)
 
-### Working with kaminari or will_paginate
-If either kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
+### Working with Kaminari or will_paginate
+If either Kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
 
 ## Contributing
 
