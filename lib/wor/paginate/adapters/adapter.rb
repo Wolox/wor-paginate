@@ -6,7 +6,7 @@ module Wor
 
         def initialize(content, page, limit)
           @content = content
-          @page = page
+          @page = page.to_i
           @limit = limit
         end
 
