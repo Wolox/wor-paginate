@@ -39,6 +39,10 @@ RSpec.describe DummyModelsController, type: :controller do
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
     end
 
     context 'when paginating with page and limit params' do
@@ -74,6 +78,10 @@ RSpec.describe DummyModelsController, type: :controller do
 
         it 'responds with page' do
           expect(response_body(response)['current_page']).to be 3
+        end
+
+        it 'responds with next_page' do
+          expect(response_body(response)['next_page']).to be 4
         end
       end
     end
@@ -112,6 +120,10 @@ RSpec.describe DummyModelsController, type: :controller do
           be Wor::Paginate::Config.default_page
         )
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
     end
 
     context 'when paginating an ActiveRecord paginated with kaminari' do
@@ -148,6 +160,10 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
       end
     end
 
@@ -186,6 +202,10 @@ RSpec.describe DummyModelsController, type: :controller do
           be Wor::Paginate::Config.default_page
         )
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
     end
 
     context 'when paginating an array' do
@@ -218,6 +238,10 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
       end
     end
 
@@ -262,6 +286,10 @@ RSpec.describe DummyModelsController, type: :controller do
 
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be 1
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
       end
     end
 

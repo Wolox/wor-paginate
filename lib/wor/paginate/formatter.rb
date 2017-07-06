@@ -10,7 +10,7 @@ module Wor
 
       def format
         { page: serialized_content, count: count, total_pages: total_pages,
-          total_count: total_count, current_page: current_page }
+          total_count: total_count, current_page: current_page, next_page: next_page }
       end
 
       protected
@@ -25,6 +25,10 @@ module Wor
 
       def total_pages
         adapter.total_pages
+      end
+
+      def next_page
+        adapter.next_page
       end
 
       def current_page

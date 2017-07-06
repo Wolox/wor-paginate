@@ -23,7 +23,7 @@ module Wor
           paginated_content.count
         end
 
-        delegate :total_pages, to: :paginated_content
+        delegate :total_pages, :next_page, to: :paginated_content
       end
     end
   end

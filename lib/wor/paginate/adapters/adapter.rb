@@ -14,23 +14,16 @@ module Wor
           required_methods.all? { |method| @content.respond_to? method }
         end
 
-        def required_methods
-          raise NotImplementedError
-        end
-
-        def paginated_content
-          raise NotImplementedError
-        end
-
-        def count
-          raise NotImplementedError
-        end
-
-        def total_count
-          raise NotImplementedError
+        [:required_methods, :paginated_content, :count, :total_count, :next_page].each do |method|
+          define_method(method) { raise NotImplementedError }
         end
 
         delegate :total_pages, to: :paginated_content
+
+        def next_page
+          return nil if page >= total_pages
+          page + 1
+        end
       end
     end
   end
