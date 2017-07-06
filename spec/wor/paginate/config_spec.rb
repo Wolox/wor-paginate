@@ -17,13 +17,14 @@ RSpec.describe Wor::Paginate::Config, type: :controller do
 
   described_class::DEFAULTS_CONFIGS.each do |attribute, _value|
     context "changing #{attribute}" do
+      let!(:n) { rand(300) }
       before do
         described_class.reset!
-        Wor::Paginate.configure { |c| c.send("#{attribute}=", 1) }
+        Wor::Paginate.configure { |c| c.send("#{attribute}=", n) }
       end
 
-      it 'changes to 1' do
-        expect(described_class.send(attribute)).to be(1)
+      it 'changes to the applied value' do
+        expect(described_class.send(attribute)).to be(n)
       end
     end
   end
