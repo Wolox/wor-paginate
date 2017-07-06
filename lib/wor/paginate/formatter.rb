@@ -10,22 +10,12 @@ module Wor
 
       def format
         { page: serialized_content, count: count, total_pages: total_pages,
-          total_count: total_count, current_page: current_page }
+          total_count: total_count, current_page: current_page, next_page: next_page }
       end
 
       protected
 
-      def count
-        adapter.count
-      end
-
-      def total_count
-        adapter.total_count
-      end
-
-      def total_pages
-        adapter.total_pages
-      end
+      delegate :count, :total_count, :total_pages, :next_page, to: :adapter
 
       def current_page
         adapter.page.to_i
