@@ -15,21 +15,7 @@ module Wor
 
       protected
 
-      def count
-        adapter.count
-      end
-
-      def total_count
-        adapter.total_count
-      end
-
-      def total_pages
-        adapter.total_pages
-      end
-
-      def next_page
-        adapter.next_page
-      end
+      delegate :count, :total_count, :total_pages, :next_page, to: :adapter
 
       def current_page
         adapter.page.to_i
