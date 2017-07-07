@@ -2,7 +2,8 @@
 require 'spec_helper'
 RSpec.describe DummyModelsController, type: :controller do
   describe '#index' do
-    let!(:dummy_models) { create_list(:dummy_model, 28) }
+    let!(:model_count) { 28 }
+    let!(:dummy_models) { create_list(:dummy_model, model_count) }
     let(:expected_list) do
       dummy_models.first(25).map do |dummy|
         { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
@@ -83,6 +84,47 @@ RSpec.describe DummyModelsController, type: :controller do
         it 'responds with next_page' do
           expect(response_body(response)['next_page']).to be 4
         end
+      end
+    end
+
+    context 'with a really high limit passed by option' do
+      let(:expected_list) do
+        dummy_models.first(50).map do |dummy|
+          { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
+        end
+      end
+      let!(:model_count) { 150 }
+
+      before do
+        get :index_with_high_limit
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['page'].length).to be 50
+      end
+
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+
+      it 'responds with count' do
+        expect(response_body(response)['count']).to be 50
+      end
+
+      it 'responds with total_count' do
+        expect(response_body(response)['total_count']).to be model_count
+      end
+
+      it 'responds with total_pages' do
+        expect(response_body(response)['total_pages']).to be 3
+      end
+
+      it 'responds with page' do
+        expect(response_body(response)['current_page']).to be 1
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
       end
     end
 

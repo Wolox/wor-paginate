@@ -21,6 +21,10 @@ class DummyModelsController < ApplicationController
     render_paginated DummyModel, page: 3, limit: 1
   end
 
+  def index_with_high_limit
+    render_paginated DummyModel, limit: 125
+  end
+
   def index_kaminari
     render_paginated DummyModel.page(1).per(25)
   end

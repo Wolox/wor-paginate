@@ -28,13 +28,12 @@ module Wor
     end
 
     def page(options)
-      return options[:page] if options[:page].present?
-      params[Config.page_param] ? params[Config.page_param] : Config.default_page
+      options[:page] || params[Config.page_param] || Config.default_page
     end
 
     def limit(options)
-      return options[:limit] if options[:limit].present?
-      params[Config.per_page_param] ? params[Config.per_page_param] : Config.default_per_page
+      [Config.max_limit,
+       options[:limit] || params[Config.per_page_param] || Config.default_per_page].min
     end
   end
 end
