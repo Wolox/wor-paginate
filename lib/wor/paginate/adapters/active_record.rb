@@ -7,16 +7,30 @@ module Wor
       class ActiveRecord < Wor::Paginate::Adapters::Adapter
         attr_reader :page
 
-        def adapt?
-          return false if @content.is_a? Enumerable
-          @content.respond_to? :count # no
+        def required_methods
+          %i(offset limit table_name)
         end
 
-        def paginated_content; end
+        def paginated_content
+          @paginated_content ||= @content.offset(offset).limit(@limit)
+        end
 
-        def count; end
+        delegate :count, to: :paginated_content
 
-        def total_count; end
+        def total_count
+          @content.count
+        end
+
+        def total_pages
+          (total_count.to_f / @limit.to_f).ceil
+        end
+
+        private
+
+        def offset
+          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.to_i.negative?
+          ((@page.to_i - 1).negative? ? 0 : @page.to_i - 1) * @limit
+        end
       end
     end
   end
