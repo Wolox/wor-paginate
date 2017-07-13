@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.authors     = ["hdf1986", "icoluccio", "alanhala"]
   s.email       = ["hugo.farji@wolox.com.ar", "ignacio.coluccio@wolox.com.ar", "alan.halatian@wolox.com.ar"]
   s.homepage    = "https://github.com/Wolox/wor-paginate"
-  s.summary     = "Summary of Wor::Paginate."
-  s.description = "Description of Wor::Paginate."
+  s.summary     = "Simplified pagination for Rails API controllers"
+  s.description = "Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over Kaminari and will_paginate"
   s.license     = "MIT"
 
   s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec)/}) }
