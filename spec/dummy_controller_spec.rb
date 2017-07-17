@@ -335,10 +335,6 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-    def response_body(response)
-      JSON.parse(response.body)
-    end
-
     context 'when paginating an ActiveRecord with a custom formatter' do
       let(:expected_list) do
         dummy_models.first(25).map do |dummy|
