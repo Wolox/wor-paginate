@@ -16,7 +16,7 @@ RSpec.describe DummyModelsController, type: :controller do
 
     context 'receiving a custom formatter as an argument' do
       it 'checks the json keys matches between the custom formatter and the response' do
-        expect(response_body(response)).to be_paginated_with(CustomFormatter)
+        expect(response_body(response)).to be_paginated.with(CustomFormatter)
       end
     end
   end

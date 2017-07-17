@@ -3,7 +3,7 @@ SimpleCov.start
 
 require File.expand_path('../../spec/dummy/config/environment.rb', __FILE__)
 require 'support/response_helper'
-require 'wor/paginate/matchers/rspec'
+require 'wor/paginate/rspec'
 
 ActiveRecord::Migrator.migrations_paths = [File.expand_path('../../spec/dummy/db/migrate', __FILE__)]
 RSpec.configure do |config|
