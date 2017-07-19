@@ -2,6 +2,9 @@ require 'simplecov'
 SimpleCov.start
 
 require File.expand_path('../../spec/dummy/config/environment.rb', __FILE__)
+require 'support/response_helper'
+require 'wor/paginate/rspec'
+
 ActiveRecord::Migrator.migrations_paths = [File.expand_path('../../spec/dummy/db/migrate', __FILE__)]
 RSpec.configure do |config|
   config.before(:suite) do
@@ -18,6 +21,7 @@ end
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include Response::JSONParser, type: :controller
 end
 
 require 'rspec/rails'
