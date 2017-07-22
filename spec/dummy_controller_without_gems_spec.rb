@@ -263,6 +263,3 @@ RSpec.describe DummyModelsWithoutGemsController, type: :controller do
     end
   end
 end
-def response_body(response)
-  JSON.parse(response.body)
-end
