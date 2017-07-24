@@ -109,7 +109,7 @@ Available helper methods are:
 If either Kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
 
 ### Test helpers
-You can use the `be_paginated` matcher to test your endpoints. It also accepts the with `param` to receive a formatter.
+You can use the `be_paginated` matcher to test your endpoints. It also accepts the `with` param to receive a formatter.
 
 You only need to add this in your spec_helper.rb (or rails_helper.rb)
 ```
