@@ -108,6 +108,34 @@ Available helper methods are:
 ### Working with Kaminari or will_paginate
 If either Kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
 
+### Test helpers
+You can use the `be_paginated` matcher to test your endpoints. It also accepts the `with` chain method to receive a formatter.
+
+You only need to add this in your spec_helper.rb (or rails_helper.rb)
+```
+# spec/spec_helper.rb
+require 'wor/paginate/rspec'
+```
+And in your spec do
+```
+# spec/controllers/your_controller.rb
+RSpec.describe YourController, type: :controller do
+  describe '#index' do
+    it 'checks that the response keys matches with the default formatter' do
+      get :index
+      expect(response_body(response)).to be_paginated
+    end
+  end
+
+  describe '#index_with_custom_formatter' do
+    it 'checks that the response keys matches with the custom formatter' do
+      get :index_custom_formatter
+      expect(response_body(response)).to be_paginated.with(CustomFormatter)
+    end
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it
