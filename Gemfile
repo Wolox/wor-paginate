@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec', '~> 3.0'
   gem 'rspec-rails', '~> 3.6.0'
   gem 'rubocop', '~> 0.47.0'
+  gem 'rubocop-rspec', '~> 1.15.0'
   gem 'simplecov', '~> 0.13.0'
   gem 'sqlite3', '~> 1.3.0'
   gem 'webmock', '~> 3.0.0'
