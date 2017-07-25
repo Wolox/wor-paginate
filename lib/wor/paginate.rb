@@ -1,4 +1,4 @@
-require_relative 'paginate/adapters/adapter'
+require_relative 'paginate/adapters/base'
 require_relative 'paginate/adapters/active_record'
 require_relative 'paginate/adapters/enumerable'
 require_relative 'paginate/adapters/kaminari'

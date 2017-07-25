@@ -11,6 +11,7 @@ RSpec.describe Wor::Paginate::Adapters::KaminariAlreadyPaginated do
         let(:adapter) do
           Wor::Paginate::Adapters::WillPaginateAlreadyPaginated.new(paginated, 1, n_page)
         end
+
         it 'responds to count' do
           expect(adapter.count).to be n_page
         end
@@ -37,6 +38,7 @@ RSpec.describe Wor::Paginate::Adapters::KaminariAlreadyPaginated do
         let(:adapter) do
           Wor::Paginate::Adapters::WillPaginateAlreadyPaginated.new(paginated, 1, n_page)
         end
+
         it 'responds to count' do
           expect(adapter.count).to be n_page
         end

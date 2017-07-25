@@ -21,17 +21,4 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'railties', '>= 4.1.0', '< 5.1'
   s.add_dependency 'rails', '>= 4.0'
-
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'faker'
-  s.add_development_dependency 'webmock'
-  s.add_development_dependency 'byebug', '~> 9.0'
-  s.add_development_dependency 'rubocop', '~> 0.47.0'
-  s.add_development_dependency 'bundler', '~> 1.13'
-  s.add_development_dependency 'rake', '~> 10.0'
-  s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.0'
-  s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'sqlite3'
 end

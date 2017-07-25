@@ -2,15 +2,16 @@
 require 'spec_helper'
 RSpec.describe DummyModelsWithoutGemsController, type: :controller do
   describe '#index' do
-    before do
-      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
-        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
-      end
-    end
     let!(:dummy_models) { create_list(:dummy_model, 28) }
     let(:expected_list) do
       dummy_models.first(25).map do |dummy|
         { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
+      end
+    end
+
+    before do
+      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
+        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
       end
     end
 

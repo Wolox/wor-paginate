@@ -9,6 +9,7 @@ RSpec.describe DummyModelsController, type: :controller do
         { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
       end
     end
+
     context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
       before do
         get :index

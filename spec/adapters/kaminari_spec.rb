@@ -5,14 +5,17 @@ RSpec.describe Wor::Paginate::Adapters::Kaminari do
     let!(:n) { 28 }
     let!(:n_page) { 25 }
     let!(:dummy_models) { create_list(:dummy_model, n) }
+
     context 'when paginating something already paginated' do
       context 'with results' do
         let!(:paginated) { DummyModel.paginate(page: 1) }
         let(:adapter) {  Wor::Paginate::Adapters::Kaminari.new(paginated, 1, n_page) }
+
         before do
           allow_any_instance_of(ActiveRecord::Relation).to receive(:per)
             .and_return(DummyModel.page(1))
         end
+
         it 'responds to count' do
           expect(adapter.count).to be n_page
         end

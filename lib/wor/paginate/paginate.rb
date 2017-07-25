@@ -1,11 +1,15 @@
 module Wor
   module Paginate
-    ADAPTERS = [Adapters::KaminariAlreadyPaginated,
-                Adapters::WillPaginateAlreadyPaginated,
-                Adapters::WillPaginate,
-                Adapters::Kaminari,
-                Adapters::ActiveRecord,
-                Adapters::Enumerable].freeze
+    # The order of this array is important!
+    # In a future release we'll provide an interface to manipulate it
+    ADAPTERS = [
+      Adapters::KaminariAlreadyPaginated,
+      Adapters::WillPaginateAlreadyPaginated,
+      Adapters::WillPaginate,
+      Adapters::Kaminari,
+      Adapters::ActiveRecord,
+      Adapters::Enumerable
+    ].freeze
 
     def render_paginated(content, options = {})
       render json: paginate(content, options)
@@ -22,9 +26,8 @@ module Wor
     end
 
     def find_adapter_for_content(content, options)
-      ADAPTERS.map do |possible_adapter|
-        possible_adapter.new(content, page(options), limit(options))
-      end.find(&:adapt?)
+      ADAPTERS.map { |adapter| adapter.new(content, page(options), limit(options)) }
+              .find(&:adapt?)
     end
 
     def page(options)
@@ -32,8 +35,10 @@ module Wor
     end
 
     def limit(options)
-      [Config.max_limit,
-       options[:limit] || params[Config.per_page_param] || Config.default_per_page].min
+      [
+        Config.max_limit,
+        options[:limit] || params[Config.per_page_param] || Config.default_per_page
+      ].min
     end
   end
 end
