@@ -7,7 +7,7 @@ module Wor
         def initialize(content, page, limit)
           @content = content
           @page = page.to_i
-          @limit = limit
+          @limit = limit.to_i
         end
 
         def adapt?

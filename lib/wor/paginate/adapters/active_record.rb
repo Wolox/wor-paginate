@@ -28,8 +28,9 @@ module Wor
         private
 
         def offset
-          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.to_i.negative?
-          ((@page.to_i - 1).negative? ? 0 : @page.to_i - 1) * @limit
+          raise Wor::Paginate::Exceptions::InvalidLimitNumber if @limit.negative?
+          raise Wor::Paginate::Exceptions::InvalidPageNumber if @page.negative?
+          ((@page - 1).negative? ? 0 : @page - 1) * @limit
         end
       end
     end

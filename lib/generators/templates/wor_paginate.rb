@@ -6,6 +6,8 @@ Wor::Paginate.configure do |config|
   config.per_page_param = :per
 
   # In case you want to use other format for your response, you can override our formatter here
-  # Check https://url-to-the-docs
+  # You can extend from Wor::Paginate::Formatter and override the 'format' method
+  # For more info about available methods for formatters see:
+  # https://github.com/Wolox/wor-paginate/blob/master/lib/wor/paginate/formatter.rb
   # config.formatter = Wor::Paginate::Formatter
 end

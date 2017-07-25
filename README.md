@@ -24,7 +24,7 @@ Then you can run `rails generate wor:paginate:install` to create the initializer
 
 ## Usage
 ### Basic usage
-The basic use case is to paginate using default values. This is achieved by including the module in a controller and calling render_paginate in the method that needs pagination to be done.
+The basic use case is to paginate using default values. This is achieved by including the module in a controller and calling render_paginate in the method that needs pagination.
 ```ruby
   class DummyModelsController < ApplicationController
     include Wor::Paginate
@@ -39,7 +39,7 @@ The first parameter to render_paginated can be multiple things:
 * Enumerables (for example, arrays and ranges)
 * Pre-paginated Kaminari or will_paginate relations (original pagination will be ignored)
 
-The response to the index will then be
+The response to the index will then be:
 ```json
 {
   "items": [
@@ -68,7 +68,8 @@ The response to the index will then be
 }
 ```
 
-Page number is passed through the `page` option of the `render_paginated` method. If none is supplied, `params[:page]` will be used (or the default parameter configured in the initializer). Default is 1.
+Page number is passed through the `page` option of the `render_paginated` method. If none is supplied, `params[:page]` will be used, (or the default parameter configured in the initializer).
+By default, if the page parameter is not present we will use 1 as the page (or the default `page` parameter configured in the initializer).
 The amount of items is passed through the `limit` option of the `render_paginated` method. If none is supplied, `params[:limit]` will be used (or the default parameter configured in the initializer). Default is 25.
 The default serializer and formatter will be used.
 
@@ -119,7 +120,7 @@ require 'wor/paginate/rspec'
 And in your spec do
 ```
 # spec/controllers/your_controller.rb
-RSpec.describe YourController, type: :controller do
+describe YourController do
   describe '#index' do
     it 'checks that the response keys matches with the default formatter' do
       get :index
