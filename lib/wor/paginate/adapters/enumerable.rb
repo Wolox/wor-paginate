@@ -3,11 +3,11 @@
 module Wor
   module Paginate
     module Adapters
-      class Enumerable < Adapter
+      class Enumerable < Base
         attr_reader :page
 
         def required_methods
-          [:to_a]
+          %i(:to_a)
         end
 
         def paginated_content

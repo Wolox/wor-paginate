@@ -1,7 +1,7 @@
 module Wor
   module Paginate
     module Adapters
-      class Adapter
+      class Base
         attr_reader :page
 
         def initialize(content, page, limit)

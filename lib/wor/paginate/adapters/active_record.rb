@@ -4,7 +4,7 @@
 module Wor
   module Paginate
     module Adapters
-      class ActiveRecord < Wor::Paginate::Adapters::Adapter
+      class ActiveRecord < Base
         attr_reader :page
 
         def required_methods

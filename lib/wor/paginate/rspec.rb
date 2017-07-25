@@ -1,4 +1,4 @@
-class MockedAdapter < Wor::Paginate::Adapters::Adapter
+class MockedAdapter < Wor::Paginate::Adapters::Base
   def initialize; end
 
   def count

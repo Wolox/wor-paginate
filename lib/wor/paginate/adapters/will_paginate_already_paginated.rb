@@ -4,7 +4,7 @@
 module Wor
   module Paginate
     module Adapters
-      class WillPaginateAlreadyPaginated < Wor::Paginate::Adapters::Adapter
+      class WillPaginateAlreadyPaginated < Base
         attr_reader :page
 
         def required_methods

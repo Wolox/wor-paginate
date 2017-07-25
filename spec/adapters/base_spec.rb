@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe Wor::Paginate::Adapters::Adapter do
+RSpec.describe Wor::Paginate::Adapters::Base do
   describe '#index' do
     context 'when paginating something already paginated' do
       context 'with results' do
-        let(:adapter) {  Wor::Paginate::Adapters::Adapter.new(DummyModel, 1, 1) }
+        let(:adapter) { described_class.new(DummyModel, 1, 1) }
 
         it 'throws error when calling required_methods' do
           expect { adapter.required_methods }.to raise_error(NotImplementedError)
