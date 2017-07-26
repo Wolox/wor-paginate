@@ -5,7 +5,7 @@ RSpec.describe Wor::Paginate::Adapters::KaminariAlreadyPaginated do
     let!(:n) { 28 }
     let!(:n_page) { 10 }
     let!(:dummy_models) { create_list(:dummy_model, n) }
-    
+
     context 'when paginating something already paginated' do
       context 'with no results' do
         let!(:paginated) { DummyModel.paginate(page: 5) }

@@ -1,5 +1,9 @@
 # Wor::Paginate
 [![Build Status](https://travis-ci.org/Wolox/wor-requests.svg)](https://travis-ci.org/Wolox/wor-paginate)
+[![Gem Version](https://badge.fury.io/rb/wor-paginate.svg)](https://badge.fury.io/rb/wor-paginate)
+[![Dependency Status](https://gemnasium.com/badges/github.com/Wolox/wor-paginate.svg)](https://gemnasium.com/github.com/Wolox/wor-paginate)
+[![Code Climate](https://codeclimate.com/github/Wolox/wor-paginate/badges/gpa.svg)](https://codeclimate.com/github/Wolox/wor-paginate)
+[![Test Coverage](https://codeclimate.com/github/Wolox/wor-paginate/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-paginate/coverage)
 
 Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over [Kaminari](https://github.com/kaminari/kaminari) and [will_paginate](https://github.com/mislav/will_paginate).
 
