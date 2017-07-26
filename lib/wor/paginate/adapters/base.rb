@@ -8,8 +8,8 @@ module Wor
           @content = content
           @page = page.to_i
           @limit = limit.to_i
-          raise Wor::Paginate::Exceptions::InvalidLimitNumber if @limit <= 0
           raise Wor::Paginate::Exceptions::InvalidPageNumber if @page <= 0
+          raise Wor::Paginate::Exceptions::InvalidLimitNumber if @limit <= 0
         end
 
         def adapt?

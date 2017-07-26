@@ -251,7 +251,6 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
-
     context 'when paginating an array' do
       before do
         get :index_array
