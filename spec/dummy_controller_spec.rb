@@ -251,6 +251,7 @@ RSpec.describe DummyModelsController, type: :controller do
       end
     end
 
+
     context 'when paginating an array' do
       before do
         get :index_array
@@ -285,6 +286,22 @@ RSpec.describe DummyModelsController, type: :controller do
 
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
+      end
+    end
+
+    context 'when paginating arrays with param page in -1' do
+      it 'throws exception' do
+        expect do
+          get :index_array, params: { page: -1 }
+        end.to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
+      end
+    end
+
+    context 'when paginating arrays with per page in -1' do
+      it 'throws exception' do
+        expect do
+          get :index_array, params: { per: -1 }
+        end.to raise_exception(Wor::Paginate::Exceptions::InvalidLimitNumber)
       end
     end
 
