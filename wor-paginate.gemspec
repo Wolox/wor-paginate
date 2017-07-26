@@ -1,5 +1,5 @@
-$:.push File.expand_path("../lib", __FILE__)
-
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "wor/paginate/version"
 require 'date'
 
@@ -11,24 +11,14 @@ Gem::Specification.new do |s|
   s.authors     = ["hdf1986", "icoluccio", "alanhala"]
   s.email       = ["hugo.farji@wolox.com.ar", "ignacio.coluccio@wolox.com.ar", "alan.halatian@wolox.com.ar"]
   s.homepage    = "https://github.com/Wolox/wor-paginate"
-  s.summary     = "Summary of Wor::Paginate."
-  s.description = "Description of Wor::Paginate."
+  s.summary     = "Simplified pagination for Rails API controllers"
+  s.description = "Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over Kaminari and will_paginate"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec)/}) }
   s.require_paths = ['lib']
 
 
-  s.add_dependency 'railties', '>= 4.1.0', '< 5.1'
-
-  s.add_development_dependency 'faker'
-  s.add_development_dependency 'webmock'
-  s.add_development_dependency 'byebug', '~> 9.0'
-  s.add_development_dependency 'rubocop', '~> 0.47.0'
-  s.add_development_dependency 'bundler', '~> 1.13'
-  s.add_development_dependency 'rake', '~> 10.0'
-  s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.0'
-  s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'simplecov'
+  s.add_dependency 'railties', '>= 4.1.0', '<= 5.1'
+  s.add_dependency 'rails', '>= 4.0'
 end

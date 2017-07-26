@@ -1,7 +1,10 @@
 AllCops:
   Exclude:
     - wor-paginate.gemspec
-    - spec/**/*
+    - spec/spy.rb
+    - spec/dummy/db/**/*
+    - spec/dummy/config/**/*
+    - spec/spec_helper.rb
 
 Documentation:
   Enabled: false
@@ -11,3 +14,39 @@ LineLength:
 
 FrozenStringLiteralComment:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+# rubocop-rspec custom configurations
+
+require: rubocop-rspec
+
+Style/VariableNumber:
+  EnforcedStyle: snake_case
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/FilePath:
+  Exclude:
+    - spec/dummy_controller_without_gems_spec.rb
+    - spec/matchers_spec.rb
+    - spec/dummy_controller_spec.rb

@@ -14,23 +14,20 @@
 # end
 #
 class Spy
+
   # Defines a counter for the given method and overrides it to update
   # the counter in every call before being executed.
   def self.spy(klass, method)
     define_counter(klass, method)
     klass.singleton_class.class_eval do
       define_method(method) do |*args, &block|
-        instance_variable_set(
-          "@spied_#{method}_counter",
-          instance_variable_get("@spied_#{method}_counter") + 1
-        )
+        instance_variable_set("@spied_#{method}_counter", instance_variable_get("@spied_#{method}_counter") + 1)
         super(*args, &block)
       end
     end
   end
 
-  # Defines a counter (and its getter) for the given method as
-  # an instance variable of the given klass.
+  # Defines a counter (and its getter) for the given method as an instance variable of the given klass.
   def self.define_counter(klass, method)
     klass.instance_variable_set("@spied_#{method}_counter".to_sym, 0)
 
@@ -40,4 +37,5 @@ class Spy
       end
     end
   end
+
 end
