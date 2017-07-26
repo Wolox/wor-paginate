@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe DummyModelsController, type: :controller do
+describe DummyModelsController, type: :controller do
   let!(:model_count) { 28 }
   let!(:dummy_models) { create_list(:dummy_model, model_count) }
   let(:expected_list) do

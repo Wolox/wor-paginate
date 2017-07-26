@@ -11,7 +11,7 @@ module Wor
           # Methods will_paginate adds to ActiveRecord relations:
           ### [:current_page, :total_entries, :total_entries=, :find_last, :current_page=,
           ### :scoped, :total_pages, :next_page, :previous_page, :out_of_bounds?]
-          %i(previous_page out_of_bounds? total_entries= total_pages current_page=)
+          %i[previous_page out_of_bounds? total_entries= total_pages current_page=]
         end
 
         def paginated_content

@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe Wor::Paginate::Adapters::Base do
+
+describe Wor::Paginate::Adapters::Base do
   describe '#index' do
     context 'when paginating something already paginated' do
       context 'with results' do

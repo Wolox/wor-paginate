@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe Wor::Paginate::Config, type: :controller do
+
+describe Wor::Paginate::Config, type: :controller do
   context 'with default config' do
     described_class::DEFAULTS_CONFIGS.each do |attribute, value|
       before do

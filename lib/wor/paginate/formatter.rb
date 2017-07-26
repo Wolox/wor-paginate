@@ -32,7 +32,7 @@ module Wor
       end
 
       def serialized_content
-        return paginated_content.as_json unless serializer.present?
+        return paginated_content.as_json if serializer.blank?
         paginated_content.map { |item| serializer.new(item) }
       end
 

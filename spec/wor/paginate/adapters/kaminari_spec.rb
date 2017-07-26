@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe Wor::Paginate::Adapters::Kaminari do
+
+describe Wor::Paginate::Adapters::Kaminari do
   describe '#index' do
     let!(:n) { 28 }
     let!(:n_page) { 25 }
@@ -9,7 +9,7 @@ RSpec.describe Wor::Paginate::Adapters::Kaminari do
     context 'when paginating something already paginated' do
       context 'with results' do
         let!(:paginated) { DummyModel.paginate(page: 1) }
-        let(:adapter) {  Wor::Paginate::Adapters::Kaminari.new(paginated, 1, n_page) }
+        let(:adapter) {  described_class.new(paginated, 1, n_page) }
 
         before do
           allow_any_instance_of(ActiveRecord::Relation).to receive(:per)

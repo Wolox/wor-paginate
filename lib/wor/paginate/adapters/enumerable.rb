@@ -7,7 +7,7 @@ module Wor
         attr_reader :page
 
         def required_methods
-          %i(to_a)
+          %i[to_a]
         end
 
         def paginated_content

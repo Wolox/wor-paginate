@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe Wor::Paginate::Adapters::KaminariAlreadyPaginated do
+
+describe Wor::Paginate::Adapters::KaminariAlreadyPaginated do
   describe '#index' do
     let!(:n) { 28 }
     let!(:n_page) { 10 }

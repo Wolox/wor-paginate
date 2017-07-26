@@ -8,7 +8,7 @@ module Wor
         attr_reader :page
 
         def required_methods
-          %i(offset limit table_name)
+          %i[offset limit table_name]
         end
 
         def paginated_content

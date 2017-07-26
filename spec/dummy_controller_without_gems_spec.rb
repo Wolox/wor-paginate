@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe DummyModelsWithoutGemsController, type: :controller do
+
+describe DummyModelsWithoutGemsController, type: :controller do
   describe '#index' do
     let!(:dummy_models) { create_list(:dummy_model, 28) }
     let(:expected_list) do

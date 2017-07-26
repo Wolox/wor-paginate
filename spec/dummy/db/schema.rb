@@ -12,11 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170626184159) do
 
-  create_table "dummies", force: :cascade do |t|
-    t.string  "name"
-    t.integer "something"
-  end
-
   create_table "dummy_models", force: :cascade do |t|
     t.string  "name"
     t.integer "something"

@@ -16,7 +16,7 @@ module Wor
           required_methods.all? { |method| @content.respond_to? method }
         end
 
-        [:required_methods, :paginated_content, :count, :total_count, :next_page].each do |method|
+        %i[required_methods paginated_content count total_count next_page].each do |method|
           define_method(method) { raise NotImplementedError }
         end
 

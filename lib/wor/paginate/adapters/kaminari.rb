@@ -6,7 +6,7 @@ module Wor
     module Adapters
       class Kaminari < Base
         def required_methods
-          %i(page)
+          %i[page]
         end
 
         def paginated_content

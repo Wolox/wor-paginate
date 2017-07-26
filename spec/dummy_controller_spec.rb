@@ -1,6 +1,6 @@
-# frozen_string_literal: true
 require 'spec_helper'
-RSpec.describe DummyModelsController, type: :controller do
+
+describe DummyModelsController, type: :controller do
   describe '#index' do
     let!(:model_count) { 28 }
     let!(:dummy_models) { create_list(:dummy_model, model_count) }
@@ -38,7 +38,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
 
@@ -78,7 +78,7 @@ RSpec.describe DummyModelsController, type: :controller do
           expect(response_body(response)['total_pages']).to be dummy_models.count
         end
 
-        it 'responds with page' do
+        it 'responds with current_page' do
           expect(response_body(response)['current_page']).to be 3
         end
 
@@ -120,7 +120,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be 3
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to be 1
       end
 
@@ -158,7 +158,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
@@ -199,7 +199,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
@@ -240,7 +240,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
@@ -277,7 +277,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to(
           be Wor::Paginate::Config.default_page
         )
@@ -343,7 +343,7 @@ RSpec.describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_pages']).to be total_pages
       end
 
-      it 'responds with page' do
+      it 'responds with current_page' do
         expect(response_body(response)['current_page']).to be 1
       end
 

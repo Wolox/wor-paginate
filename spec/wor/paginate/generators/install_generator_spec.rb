@@ -5,7 +5,7 @@ describe Wor::Paginate::Generators::InstallGenerator, type: :generator do
   context 'generating the initializer ' do
     destination File.expand_path('../../../../tmp', __FILE__)
 
-    before(:all) do
+    before do
       prepare_destination
       run_generator
     end
