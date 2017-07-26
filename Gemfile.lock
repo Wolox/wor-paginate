@@ -3,7 +3,7 @@ PATH
   specs:
     wor-paginate (0.1.0)
       rails (>= 4.0)
-      railties (>= 4.1.0, < 5.1)
+      railties (>= 4.1.0, <= 5.1)
 
 GEM
   remote: https://rubygems.org/
