@@ -24,7 +24,7 @@ module Wor
 
       # This is mostly useful for the tests
       def reset!
-        DEFAULTS_CONFIGS.each { |k, v| instance_variable_set("@#{k}", v) }
+        DEFAULTS_CONFIGS.each { |k, v| send("#{k}=", v) }
       end
     end
   end

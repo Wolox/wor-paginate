@@ -4,13 +4,19 @@ module Wor
       attr_accessor :adapter, :content, :formatter, :options
 
       def initialize(adapter, options = {})
-        self.adapter = adapter
-        self.options = options
+        @adapter = adapter
+        @options = options
       end
 
       def format
-        { page: serialized_content, count: count, total_pages: total_pages,
-          total_count: total_count, current_page: current_page, next_page: next_page }
+        {
+          page: serialized_content,
+          count: count,
+          total_pages: total_pages,
+          total_count: total_count,
+          current_page: current_page,
+          next_page: next_page
+        }
       end
 
       protected
@@ -26,7 +32,7 @@ module Wor
       end
 
       def serialized_content
-        return paginated_content.map(&:as_json) unless serializer.present?
+        return paginated_content.as_json unless serializer.present?
         paginated_content.map { |item| serializer.new(item) }
       end
 
