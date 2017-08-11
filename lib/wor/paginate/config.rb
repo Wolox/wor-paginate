@@ -5,7 +5,7 @@ module Wor
         default_per_page: 25,
         default_page: 1,
         page_param: :page,
-        per_page_param: :per_page,
+        per_page_param: :limit,
         formatter: Wor::Paginate::Formatter,
         max_limit: 50
       }.freeze
