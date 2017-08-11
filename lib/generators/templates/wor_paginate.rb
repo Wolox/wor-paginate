@@ -3,7 +3,7 @@ Wor::Paginate.configure do |config|
   # config.default_page = 1
 
   config.page_param = :page
-  config.per_page_param = :per
+  config.per_page_param = :limit
 
   # In case you want to use other format for your response, you can override our formatter here
   # You can extend from Wor::Paginate::Formatter and override the 'format' method
