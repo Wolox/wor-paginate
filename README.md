@@ -46,7 +46,7 @@ The first parameter to render_paginated can be multiple things:
 The response to the index will then be:
 ```json
 {
-  "items": [
+  "page": [
     {
       "id": 1,
       "name": "1c",
@@ -68,7 +68,7 @@ The response to the index will then be:
   "total_pages": 2,
   "total_count": 28,
   "current_page": 1,
-
+  "next_page": 2
 }
 ```
 
