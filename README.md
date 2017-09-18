@@ -118,7 +118,7 @@ You can use the `be_paginated` matcher to test your endpoints. It also accepts t
 
 You only need to add this in your rails_helper.rb
 ```
-# spec/spec_helper.rb
+# spec/rails_helper.rb
 require 'wor/paginate/rspec'
 ```
 And in your spec do
