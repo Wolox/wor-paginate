@@ -19,4 +19,7 @@ fail("fit left in tests") if `grep -r fit specs/ `.length > 1
 fail "Please provide a summary in the Pull Request description" if github.pr_body.length < 5
 
 can_merge = github.pr_json["mergeable"]
-warn("This PR cannot be merged yet. Please fix the conflicts with the base branch", sticky: false) unless can_merge
+fail("This PR cannot be merged yet. Please fix the conflicts with the base branch", sticky: false) unless can_merge
+
+todoist.message = "Please fix all TODOS"
+todoist.fail_for_todos
