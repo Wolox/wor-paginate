@@ -24,4 +24,4 @@ fail("This PR cannot be merged yet. Please fix the conflicts with the base branc
 todoist.message = "Please fix all TODOS"
 todoist.fail_for_todos
 
-changelog.check
+changelog.check unless declared_trivial
