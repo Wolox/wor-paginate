@@ -10,7 +10,7 @@ install:
   - bundle exec rake db:migrate RAILS_ENV=test -f spec/dummy/Rakefile
 
 before_script:
-  - gem install danger
+  - gem install danger --version '~> 5.0'
   - bundle exec danger
 
 script:
