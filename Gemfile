@@ -33,3 +33,8 @@ group :development, :test do
   gem 'webmock', '~> 3.0.0'
   gem 'will_paginate', '~> 3.1.0'
 end
+
+group :test do
+  gem 'danger'
+  gem 'danger-todoist'
+end
