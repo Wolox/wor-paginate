@@ -20,7 +20,7 @@ fail("fit left in tests") if `grep -r fit specs/ `.length > 1
 # Ensure there's a summary on the pull request description
 fail "Please provide a summary in the Pull Request description" if github.pr_body.length < 5
 
-# Ensures that the PR is mergeable
+# Ensures that the PR is mergeable 
 can_merge = github.pr_json["mergeable"]
 fail("This PR cannot be merged yet. Please fix the conflicts with the base branch", sticky: false) unless can_merge
 
