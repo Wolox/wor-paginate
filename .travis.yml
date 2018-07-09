@@ -6,10 +6,14 @@ rvm:
 
 install:
   - gem install bundler
+  - gem install danger --version '~> 5.0'
   - bundle install --retry=3
   - bundle exec rake db:migrate RAILS_ENV=test -f spec/dummy/Rakefile
 
+before_script:
+  - danger
+
 script:
-  - bundle exec rubocop --format simple
+  - bundle exec rubocop lib spec --format simple
   - bundle exec rspec
   - bundle exec codeclimate-test-reporter

@@ -13,6 +13,7 @@ spec/dummy/tmp/
 /spec/reports/
 /tmp/
 *.gem
+Gemfile.lock
 
 # Created by https://www.gitignore.io/api/ruby,rubymine,rails,emacs,vim,sublimetext,osx,macos,linux,windows
 

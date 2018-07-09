@@ -18,7 +18,7 @@ group :development, :test do
   gem 'bundler', '~> 1.13'
   gem 'byebug', '~> 9.0'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
-  gem 'database_cleaner', '~> 1.5.0'
+  gem 'database_cleaner', '~> 1.6.0'
   gem 'factory_girl_rails', '~> 4.7.0'
   gem 'faker', '~> 1.7.0'
   gem 'generator_spec', '~> 0.9.0'
@@ -32,4 +32,10 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.0'
   gem 'webmock', '~> 3.0.0'
   gem 'will_paginate', '~> 3.1.0'
+end
+
+group :test do
+  gem 'danger'
+  gem 'danger-todoist'
+  gem 'danger-changelog', '~> 0.1'
 end
