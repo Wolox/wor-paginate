@@ -1,6 +1,8 @@
 # Sometimes it's a README fix, or something like that - which isn't relevant for
 # including in a project's CHANGELOG for example
 declared_trivial = github.pr_title.include? "#trivial"
+gemfile_changed = git.deleted_files.include?('Gemfile')
+gemfile_lock_changed = git.deleted_files.include?('Gemfile.lock')
 
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
 warn("PR is classed as Work in Progress") if github.pr_title.include? "[WIP]"
@@ -41,11 +43,17 @@ changelog.check unless declared_trivial
   fail("#{protected_file} file shouldn't be deleted or renamed") if git.deleted_files.include?(protected_file) || git.renamed_files.include?(protected_file)
 end
 
-# Fails when a dangerous 
+# Fails when a dangerous file is uploaded
 [
   '.ruby-version',
   'Gemfile.lock',
 ].each do |protected_file|
-  fail("#{protected_file} file shouldn't be deleted or renamed") if git.deleted_files.include?(protected_file) || git.renamed_files.include?(protected_file)
+  fail("#{protected_file} file shouldn't be added") if git.added_files.include?(protected_file)
 end
-# TODO: check that bundle install where ran
+
+# Check that bundle install where ran
+# if gemfile_changed && !gemfile_lock_changed
+#   message = 'Changes were made to Gemfile, but not to Gemfile.lock';
+#   idea = 'Perhaps you need to run `bundle install`?';
+#   warn(`${message} - <i>${idea}</i>`);
+# end
