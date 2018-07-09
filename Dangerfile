@@ -51,6 +51,11 @@ end
   fail("#{protected_file} file shouldn't be added") if git.added_files.include?(protected_file)
 end
 
+# Removes placeholder line
+Danger::Changelog.configure do |config|
+  config.placeholder_line = nil
+end
+
 # Check that bundle install where ran
 # if gemfile_changed && !gemfile_lock_changed
 #   message = 'Changes were made to Gemfile, but not to Gemfile.lock';
