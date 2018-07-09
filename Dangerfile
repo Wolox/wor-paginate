@@ -7,7 +7,7 @@ gemfile_lock_changed = git.deleted_files.include?('Gemfile.lock')
 # Make it more obvious that a PR is a work in progress and shouldn't be merged yet
 warn("PR is classed as Work in Progress") if github.pr_title.include? "[WIP]"
 
-# Warn when there is a big PR
+# Warn when there is a big PR with more than 500 lines
 warn("Big PR. If it's possible try to reduce this into smaller PR's") if git.lines_of_code > 500
 
 # Warn when a PR is clased as work in progress
