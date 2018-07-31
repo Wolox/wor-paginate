@@ -33,7 +33,7 @@ unless declared_trivial
   [
     'CHANGELOG.md'
   ].each do |file_who_needs_change|
-    fail("#{file_who_needs_change} needs to be changed") if git.modified_files.include?(file_who_needs_change)
+    fail("#{file_who_needs_change} needs to be changed") unless git.modified_files.include?(file_who_needs_change)
   end
 end
 # Fails when an important file is deleted or renamed
