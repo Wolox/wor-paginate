@@ -29,8 +29,13 @@ todoist.message = "Please fix all TODOS"
 todoist.fail_for_todos
 
 # Check for changes in the CHANGELOG.md if the pr isn't trivial
-changelog.check unless declared_trivial
-
+unless declared_trivial
+  [
+    'CHANGELOG.md'
+  ].each do |file_who_needs_change|
+    fail("#{file_who_needs_change}") if git.modified_files.include?(file_who_needs_change)
+  end
+end
 # Fails when an important file is deleted or renamed
 [
   'wor-paginate-gemspec',
@@ -52,9 +57,9 @@ end
 end
 
 # Removes placeholder line
-Danger::Changelog.configure do |config|
-  config.placeholder_line = nil
-end
+# Danger::Changelog.configure do |config|
+#  config.placeholder_line = nil
+# end
 
 # Check that bundle install where ran
 # if gemfile_changed && !gemfile_lock_changed
