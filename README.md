@@ -117,12 +117,12 @@ If either Kaminari or will_paginate are required in the project, Wor::Paginate w
 You can use the `be_paginated` matcher to test your endpoints. It also accepts the `with` chain method to receive a formatter.
 
 You only need to add this in your rails_helper.rb
-```
+```ruby
 # spec/rails_helper.rb
 require 'wor/paginate/rspec'
 ```
 And in your spec do
-```
+```ruby
 # spec/controllers/your_controller.rb
 describe YourController do
   describe '#index' do
