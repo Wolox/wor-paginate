@@ -37,5 +37,4 @@ end
 group :test do
   gem 'danger'
   gem 'danger-todoist'
-  gem 'danger-changelog', '~> 0.1'
 end
