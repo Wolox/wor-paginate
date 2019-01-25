@@ -12,6 +12,10 @@ module Wor
     ].freeze
 
     def render_paginated(content, options = {})
+      if includes?(options)
+        return render json: paginate(content, options),
+                      include: options[:include]
+      end
       render json: paginate(content, options)
     end
 
@@ -40,6 +44,10 @@ module Wor
 
     def param_limit
       params[Config.per_page_param].to_i unless params[Config.per_page_param].nil?
+    end
+
+    def includes?(options)
+      !options[:include].nil?
     end
 
     def limit(options)
