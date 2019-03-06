@@ -32,7 +32,7 @@ module Wor
       end
 
       def serialized_content
-        return paginated_content.map { |item| serializer.new(item) } if serializer.present?
+        return paginated_content.map { |item| serializer.new(item, options) } if serializer.present?
 
         if defined? ActiveModelSerializers::SerializableResource
           ActiveModelSerializers::SerializableResource.new(paginated_content).as_json
