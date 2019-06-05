@@ -12,10 +12,8 @@ module Wor
     ].freeze
 
     def render_paginated(content, options = {})
-      if includes?(options)
-        return render json: paginate(content, options),
-                      include: options[:include]
-      end
+      return render_paginate_with_include(content, options) if includes?(options)
+
       render json: paginate(content, options)
     end
 
@@ -23,6 +21,10 @@ module Wor
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
       formatter_class(options).new(adapter, options).format
+    end
+
+    def render_paginate_with_include(content, options)
+      render json: paginate(content, options), include: options[:include]
     end
 
     def formatter_class(options)
