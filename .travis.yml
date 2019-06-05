@@ -1,18 +1,19 @@
 language: ruby
 rvm:
-  - 2.2.2
   - 2.3.3
   - 2.4.0
+  - 2.4.2
+  - 2.5.0
   - ruby-head
 
 install:
-  - gem install bundler
+  - gem install bundler -v 1.16.4
   - gem install danger --version '~> 5.0'
-  - bundle install --retry=3
+  - bundle _1.16.4_ install --retry=3
   - bundle exec rake db:migrate RAILS_ENV=test -f spec/dummy/Rakefile
 
 before_script:
-  - danger
+  - bundle exec danger
 
 script:
   - bundle exec rubocop lib spec --format simple

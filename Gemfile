@@ -15,7 +15,7 @@ gemspec
 
 group :development, :test do
   gem 'active_model_serializers', '~> 0.10.0'
-  gem 'bundler', '~> 1.17.2'
+  gem 'bundler', '~> 1.16.4'
   gem 'byebug', '~> 9.0'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner', '~> 1.6.0'
@@ -36,5 +36,5 @@ end
 
 group :test do
   gem 'danger'
-  gem 'danger-todoist'
+  gem 'danger-todoist', '~> 1.3.0'
 end
