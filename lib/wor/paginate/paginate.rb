@@ -38,13 +38,17 @@ module Wor
       options[:limit].to_i unless options[:limit].nil?
     end
 
+    def option_max_limit(options)
+      options[:max_limit].to_i unless options[:max_limit].nil?
+    end
+
     def param_limit
       params[Config.per_page_param].to_i unless params[Config.per_page_param].nil?
     end
 
     def limit(options)
       [
-        Config.max_limit,
+        option_max_limit(options) || Config.max_limit,
         option_limit(options) || param_limit || Config.default_per_page
       ].min
     end
