@@ -373,5 +373,25 @@ describe DummyModelsController, type: :controller do
         expect(response_body(response)['items']).to eq expected_list
       end
     end
+
+    context 'when paginating an ActiveRecord with a group by query' do
+      let!(:dummy_models) { create_list(:dummy_model, 12, name: 'argentina') }
+      let!(:dummy_models_2) { create_list(:dummy_model, 10, name: 'uruguay') }
+      let!(:dummy_models_3) { create_list(:dummy_model, 18, name: 'costa rica') }
+
+      let(:limit) { 2 }
+
+      before do
+        get :index_group_by, params: { per: limit }
+      end
+
+      it 'responds with a page with expected length' do
+        expect(response_body(response)['page'].length).to eq 2
+      end
+
+      it 'responds with valid total count' do
+        expect(response_body(response)['total_count']).to eq 3
+      end
+    end
   end
 end

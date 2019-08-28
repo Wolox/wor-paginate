@@ -40,4 +40,8 @@ class DummyModelsController < ApplicationController
   def index_custom_formatter
     render_paginated DummyModel, formatter: CustomFormatter
   end
+
+  def index_group_by
+    render_paginated DummyModel.ocurrences_of_name
+  end
 end
