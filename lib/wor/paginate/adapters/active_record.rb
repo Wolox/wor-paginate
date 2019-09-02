@@ -15,10 +15,16 @@ module Wor
           @paginated_content ||= @content.offset(offset).limit(@limit)
         end
 
-        delegate :count, to: :paginated_content
+        def count
+          paginated_content.size
+        end
 
         def total_count
-          @content.count
+          content = @content.reorder(nil)
+          content_size = content.try(:size)
+          return content_size.count if content_size.is_a? Hash
+
+          content.count
         end
 
         def total_pages
