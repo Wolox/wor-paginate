@@ -20,7 +20,9 @@ module Wor
         end
 
         def total_count
-          paginated_content.count
+          count = paginated_content.count
+          return count.size if count.is_a? Hash
+          count
         end
 
         delegate :total_pages, :next_page, to: :paginated_content
