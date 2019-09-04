@@ -1,7 +1,6 @@
 # Wor::Paginate
 [![Build Status](https://travis-ci.org/Wolox/wor-paginate.svg?branch=master)](https://travis-ci.org/Wolox/wor-paginate)
 [![Gem Version](https://badge.fury.io/rb/wor-paginate.svg)](https://badge.fury.io/rb/wor-paginate)
-[![Dependency Status](https://gemnasium.com/badges/github.com/Wolox/wor-paginate.svg)](https://gemnasium.com/github.com/Wolox/wor-paginate)
 [![Code Climate](https://codeclimate.com/github/Wolox/wor-paginate/badges/gpa.svg)](https://codeclimate.com/github/Wolox/wor-paginate)
 [![Test Coverage](https://codeclimate.com/github/Wolox/wor-paginate/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-paginate/coverage)
 
