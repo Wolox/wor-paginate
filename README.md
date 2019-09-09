@@ -16,6 +16,7 @@ Wor::Paginate
     - [Working with Kaminari or will_paginate](#working-with-kaminari-or-will_paginate)
     - [Test helpers](#test-helpers)
   - [Contributing](#contributing)
+  - [Releases](#releases)
   - [About](#about)
   - [License](#license)
 
@@ -173,7 +174,10 @@ end
 4. Run rubocop lint (`bundle exec rubocop -R --format simple`)
 5. Run rspec tests (`bundle exec rspec`)
 6. Push your branch (`git push origin my-new-feature`)
-7. Create a new Pull Request to `development` branch
+7. Create a new Pull Request to `master` branch
+
+## Releases
+📢 [See what's changed in a recent version](https://github.com/Wolox/wor-paginate/releases)
 
 ## About ##
 
