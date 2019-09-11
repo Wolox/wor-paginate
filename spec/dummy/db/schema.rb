@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626184159) do
+ActiveRecord::Schema.define(version: 2019_01_24_175354) do
+
+  create_table "dummy_model_grand_sons", force: :cascade do |t|
+    t.string "name"
+    t.integer "something"
+    t.integer "dummy_model_son_id"
+    t.index ["dummy_model_son_id"], name: "index_dummy_model_grand_sons_on_dummy_model_son_id"
+  end
+
+  create_table "dummy_model_sons", force: :cascade do |t|
+    t.string "name"
+    t.integer "something"
+    t.integer "dummy_model_id"
+    t.index ["dummy_model_id"], name: "index_dummy_model_sons_on_dummy_model_id"
+  end
 
   create_table "dummy_models", force: :cascade do |t|
-    t.string  "name"
+    t.string "name"
     t.integer "something"
   end
 
