@@ -7,10 +7,10 @@ rvm:
   - ruby-head
 
 before_install:
-  - gem install bundler -v 1.16.4
+  - gem install bundler -v 2.0.1
 
 install:
-  - bundle _1.16.4_ install --retry=3
+  - bundle _2.0.1_ install --retry=3
   - bundle exec rake db:migrate RAILS_ENV=test -f spec/dummy/Rakefile
 
 script:
