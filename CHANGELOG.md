@@ -1,6 +1,6 @@
 ## Change log
 
-### V0.1.5a
+### V0.1.6
 * [#62](https://github.com/Wolox/wor-paginate/pull/62): Add options in active model serializer - [@blacksam07](https://github.com/blacksam07).
 
 ### V0.1.5

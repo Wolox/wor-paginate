@@ -1,5 +1,5 @@
 module Wor
   module Paginate
-    VERSION = '0.1.5a'.freeze
+    VERSION = '0.1.6'.freeze
   end
 end
