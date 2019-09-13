@@ -1,9 +1,28 @@
-# Wor::Paginate
+Wor::Paginate
+=============
+
 [![Build Status](https://travis-ci.org/Wolox/wor-paginate.svg?branch=master)](https://travis-ci.org/Wolox/wor-paginate)
 [![Gem Version](https://badge.fury.io/rb/wor-paginate.svg)](https://badge.fury.io/rb/wor-paginate)
-[![Dependency Status](https://gemnasium.com/badges/github.com/Wolox/wor-paginate.svg)](https://gemnasium.com/github.com/Wolox/wor-paginate)
 [![Code Climate](https://codeclimate.com/github/Wolox/wor-paginate/badges/gpa.svg)](https://codeclimate.com/github/Wolox/wor-paginate)
-[![Test Coverage](https://codeclimate.com/github/Wolox/wor-paginate/badges/coverage.svg)](https://codeclimate.com/github/Wolox/wor-paginate/coverage)
+
+# Table of contents
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Basic usage](#basic-usage)
+    - [Customizing output](#customizing-output)
+      - [Custom serializers](#custom-serializers)
+      - [Custom formatters](#custom-formatters)
+    - [Working with Kaminari or will_paginate](#working-with-kaminari-or-will_paginate)
+    - [Test helpers](#test-helpers)
+  - [Contributing](#contributing)
+  - [Releases](#releases)
+  - [About](#about)
+  - [License](#license)
+
+-----------------------
+
+## Description
 
 Wor::Paginate is a gem for Rails that simplifies pagination, particularly for controller methods, while standardizing JSON output for APIs. It's meant to work both as a standalone pagination gem and as an extra layer over [Kaminari](https://github.com/kaminari/kaminari) and [will_paginate](https://github.com/mislav/will_paginate).
 
@@ -34,7 +53,7 @@ The basic use case is to paginate using default values. This is achieved by incl
     include Wor::Paginate
 
     def index
-        render_paginated DummyModel
+      render_paginated DummyModel
     end
   end
 ```
@@ -57,7 +76,7 @@ The response to the index will then be:
       "name": "i",
       "something": 68
     },
-    ...
+    // ...
     {
       "id": 25,
       "name": "2m",
@@ -131,25 +150,31 @@ If either Kaminari or will_paginate are required in the project, Wor::Paginate w
 You can use the `be_paginated` matcher to test your endpoints. It also accepts the `with` chain method to receive a formatter.
 
 You only need to add this in your rails_helper.rb
+
 ```ruby
 # spec/rails_helper.rb
 require 'wor/paginate/rspec'
 ```
+
 And in your spec do
 ```ruby
 # spec/controllers/your_controller.rb
 describe YourController do
+  let(:response_body) do
+    ActiveSupport::JSON.decode(response.body) if response.present? && response.body.present?
+  end
+
   describe '#index' do
-    it 'checks that the response keys matches with the default formatter' do
-      get :index
-      expect(response_body(response)).to be_paginated
-    end
+    subject(:http_request) { get :index }
+
+    it { expect(response_body).to be_paginated }
   end
 
   describe '#index_with_custom_formatter' do
+    subject(:http_request) { get :index_custom_formatter }
+
     it 'checks that the response keys matches with the custom formatter' do
-      get :index_custom_formatter
-      expect(response_body(response)).to be_paginated.with(CustomFormatter)
+      expect(response_body).to be_paginated.with(CustomFormatter)
     end
   end
 end
@@ -163,12 +188,25 @@ end
 4. Run rubocop lint (`bundle exec rubocop -R --format simple`)
 5. Run rspec tests (`bundle exec rspec`)
 6. Push your branch (`git push origin my-new-feature`)
-7. Create a new Pull Request
+7. Create a new Pull Request to `master` branch
+
+## Releases
+📢 [See what's changed in a recent version](https://github.com/Wolox/wor-paginate/releases)
 
 ## About ##
 
-This project is maintained by [Hugo Farji](https://github.com/hdf1986), [Ignacio Coluccio](https://github.com/icoluccio), and [Alan Halatian](https://github.com/alanhala). It was written by [Wolox](http://www.wolox.com.ar).
-![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)
+The current maintainers of this gem are :
+* [Lucas Voboril](https://github.com/lucasVoboril)
+* [Martín Mallea](https://github.com/mnmallea)
+
+This project was developed by:
+* [Hugo Farji](https://github.com/hdf1986)
+* [Ignacio Coluccio](https://github.com/icoluccio)
+* [Alan Halatian](https://github.com/alanhala)
+
+At [Wolox](http://www.wolox.com.ar)
+
+[![Wolox](https://raw.githubusercontent.com/Wolox/press-kit/master/logos/logo_banner.png)](http://www.wolox.com.ar)
 
 ## License
 
