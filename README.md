@@ -12,6 +12,7 @@ Wor::Paginate
     - [Basic usage](#basic-usage)
     - [Customizing output](#customizing-output)
       - [Custom serializers](#custom-serializers)
+      - [Custom options](#custom-options)
       - [Custom formatters](#custom-formatters)
     - [Working with Kaminari or will_paginate](#working-with-kaminari-or-will_paginate)
     - [Test helpers](#test-helpers)
@@ -110,6 +111,30 @@ render_paginated DummyModel, each_serializer: CustomDummyModelSerializer
 ```
 where the serializer is just an [`ActiveModel::Serializer`](https://github.com/rails-api/active_model_serializers).
 
+#### Custom options
+##### max_limit
+The max amount of items is passed through the `max_limit` option, You can set the value in the initializer or in the `render_paginated` method, (If none is supplied, take the default value configured in the initializer). Default is 50.
+
+```ruby
+  render_paginated DummyModel, max_limit: 100
+```
+
+##### current_user
+Using custom options in serializer, example method `current_user`
+
+```ruby
+  render_paginated DummyModel, current_user: current_user
+```
+
+In serializer
+
+```ruby
+  class CustomSerializer < ActiveModel::Serializer
+    def method
+      @instance_options[:current_user]
+    end
+  end
+```
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
