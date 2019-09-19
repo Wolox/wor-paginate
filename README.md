@@ -94,7 +94,8 @@ The response to the index will then be:
 
 Page number is passed through the `page` option of the `render_paginated` method. If none is supplied, `params[:page]` will be used, (or the default parameter configured in the initializer).
 By default, if the page parameter is not present we will use 1 as the page (or the default `page` parameter configured in the initializer).
-The amount of items is passed through the `limit` option of the `render_paginated` method. If none is supplied, `params[:limit]` will be used (or the default parameter configured in the initializer). Default is 25. The default serializer and formatter will be used.
+- The amount of items is passed through the `limit` option of the `render_paginated` method. If none is supplied, `params[:limit]` will be used (or the default parameter configured in the initializer). Default is 25.
+- The default serializer and formatter will be used.
 
 ### Customizing output
 #### Custom serializers
