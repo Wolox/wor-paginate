@@ -15,7 +15,7 @@ gemspec
 
 group :development, :test do
   gem 'active_model_serializers', '~> 0.10.0'
-  gem 'bundler', '~> 1.16.4'
+  gem 'bundler', '~> 2.0.1'
   gem 'byebug', '~> 9.0'
   gem 'codeclimate-test-reporter', '~> 1.0.0'
   gem 'database_cleaner', '~> 1.6.0'

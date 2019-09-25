@@ -117,18 +117,19 @@ The max amount of items is passed through the `max_limit` option, You can set th
 Using custom options in serializer, example method `current_user`
 
 ```ruby
-  render_paginated DummyModel, current_user: current_user
+render_paginated DummyModel, each_serializer: CustomDummyModelSerializer, current_user: current_user
 ```
 
 In serializer
 
 ```ruby
-  class CustomSerializer < ActiveModel::Serializer
-    def method
-      @instance_options[:current_user]
-    end
+class CustomSerializer < ActiveModel::Serializer
+  def method
+    @instance_options[:current_user]
   end
+end
 ```
+
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
