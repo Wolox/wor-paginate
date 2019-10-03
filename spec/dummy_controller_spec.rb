@@ -375,9 +375,9 @@ describe DummyModelsController, type: :controller do
     end
 
     context 'when paginating an ActiveRecord with a group by query' do
-      let!(:dummy_models) { create_list(:dummy_model, 12, name: 'argentina') }
-      let!(:dummy_models_2) { create_list(:dummy_model, 10, name: 'uruguay') }
-      let!(:dummy_models_3) { create_list(:dummy_model, 18, name: 'costa rica') }
+      let!(:dummy_models) { create_list(:dummy_model, 1, name: 'argentina') }
+      let!(:dummy_models_2) { create_list(:dummy_model, 2, name: 'uruguay') }
+      let!(:dummy_models_3) { create_list(:dummy_model, 3, name: 'costa rica') }
 
       let(:limit) { 2 }
 
