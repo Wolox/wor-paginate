@@ -22,7 +22,7 @@ module Wor
         def total_count
           content = @content.reorder(nil)
           content_size = content.try(:size)
-          return content_size.count if content_size.is_a? Hash
+          return content.to_a.size if content_size.is_a? Hash
 
           content.count
         end
