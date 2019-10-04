@@ -1,3 +1,5 @@
+require_relative 'helpers/total_count'
+
 # Used when render_paginated is called with an ActiveModel directly, with will_paginate
 # already required. Something like
 ### render_paginated DummyModel
@@ -5,6 +7,8 @@ module Wor
   module Paginate
     module Adapters
       class WillPaginate < Base
+        include Helpers::TotalCount
+
         attr_reader :page
 
         def required_methods
@@ -17,12 +21,6 @@ module Wor
 
         def count
           paginated_content.to_a.size
-        end
-
-        def total_count
-          count = paginated_content.count
-          return count.size if count.is_a? Hash
-          count
         end
 
         delegate :total_pages, :next_page, to: :paginated_content
