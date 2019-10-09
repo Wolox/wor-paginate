@@ -5,10 +5,10 @@ module Wor
         module TotalCount
           def total_count
             content = @content.reorder(nil)
-            content_size = content.try(:size)
+            content_size = content.size
             return content.to_a.size if content_size.is_a? Hash
 
-            content.count
+            content_size
           end
         end
       end
