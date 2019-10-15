@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'index_with_high_limit'
       get 'index_each_serializer'
       get 'index_custom_formatter'
+      get 'index_group_by'
     end
   end
 

@@ -1,3 +1,5 @@
+require_relative 'helpers/total_count'
+
 # Used when render_paginated is called with an ActiveRecord directly, without a
 # pagination gem like kaminari or will_paginate
 ### render_paginated DummyModel
@@ -5,6 +7,8 @@ module Wor
   module Paginate
     module Adapters
       class ActiveRecord < Base
+        include Helpers::TotalCount
+
         attr_reader :page
 
         def required_methods
@@ -15,10 +19,8 @@ module Wor
           @paginated_content ||= @content.offset(offset).limit(@limit)
         end
 
-        delegate :count, to: :paginated_content
-
-        def total_count
-          @content.count
+        def count
+          paginated_content.size
         end
 
         def total_pages
