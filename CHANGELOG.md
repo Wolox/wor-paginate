@@ -1,5 +1,11 @@
 ## Change log
 
+### V0.1.7
+* [#61](https://github.com/Wolox/wor-paginate/pull/61) Allows requests on offset pages for enumerables - [@mtejedorwolox](https://github.com/mtejedorwolox).
+* [#63](https://github.com/Wolox/wor-paginate/pull/63) Add max_limit with optional parameter - [@blacksam07](https://github.com/blacksam07).
+* [#71](https://github.com/Wolox/wor-paginate/pull/71) Group by fix - [@mnmallea](https://github.com/mnmallea).
+* [#82](https://github.com/Wolox/wor-paginate/pull/71) Rails 6 support - [@mnmallea](https://github.com/mnmallea).
+
 ### V0.1.6
 * [#62](https://github.com/Wolox/wor-paginate/pull/62): Add options in active model serializer - [@blacksam07](https://github.com/blacksam07).
 
