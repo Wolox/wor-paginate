@@ -29,7 +29,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.49.1'
   gem 'rubocop-rspec', '~> 1.15.0'
   gem 'simplecov', '~> 0.13.0'
-  gem 'sqlite3', '~> 1.3.0'
+  gem 'sqlite3', '~> 1.4'
   gem 'webmock', '~> 3.0.0'
   gem 'will_paginate', '~> 3.1.0'
 end
