@@ -1,5 +1,8 @@
 ## Change log
 
+### V0.1.8
+* [#85](https://github.com/Wolox/wor-paginate/pull/85) Delete max Railties dependency in gemspec - [@lucasvoboril](https://github.com/lucasvoboril).
+
 ### V0.1.7
 * [#61](https://github.com/Wolox/wor-paginate/pull/61) Allows requests on offset pages for enumerables - [@mtejedorwolox](https://github.com/mtejedorwolox).
 * [#63](https://github.com/Wolox/wor-paginate/pull/63) Add max_limit with optional parameter - [@blacksam07](https://github.com/blacksam07).
