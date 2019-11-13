@@ -15,13 +15,14 @@ module Wor
           total_pages: total_pages,
           total_count: total_count,
           current_page: current_page,
+          previous_page: previous_page,
           next_page: next_page
         }
       end
 
       protected
 
-      delegate :count, :total_count, :total_pages, :next_page, to: :adapter
+      delegate :count, :total_count, :total_pages, :previous_page, :next_page, to: :adapter
 
       def current_page
         adapter.page.to_i

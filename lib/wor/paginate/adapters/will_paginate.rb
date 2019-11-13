@@ -23,7 +23,7 @@ module Wor
           paginated_content.to_a.size
         end
 
-        delegate :total_pages, :next_page, to: :paginated_content
+        delegate :total_pages, :previous_page, :next_page, to: :paginated_content
       end
     end
   end

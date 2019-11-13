@@ -24,7 +24,14 @@ module Wor
 
         def next_page
           return nil if page >= total_pages
+
           page + 1
+        end
+
+        def previous_page
+          return nil if page == 1
+
+          page - 1
         end
       end
     end

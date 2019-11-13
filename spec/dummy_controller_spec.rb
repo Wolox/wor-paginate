@@ -45,6 +45,10 @@ describe DummyModelsController, type: :controller do
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
       end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
     context 'when paginating with page and limit params' do
@@ -84,6 +88,10 @@ describe DummyModelsController, type: :controller do
 
         it 'responds with next_page' do
           expect(response_body(response)['next_page']).to be 4
+        end
+
+        it 'responds with previous_page' do
+          expect(response_body(response)['previous_page']).to be 2
         end
       end
     end
@@ -127,6 +135,10 @@ describe DummyModelsController, type: :controller do
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
       end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
     context 'when paginating an ActiveRecord with a scope' do
@@ -166,6 +178,10 @@ describe DummyModelsController, type: :controller do
 
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
       end
     end
 
@@ -208,9 +224,13 @@ describe DummyModelsController, type: :controller do
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
       end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
-    context 'when paginating an ActiveRecord paginated with kaminari' do
+    context 'when paginating an ActiveRecord paginated with will_paginate' do
       before do
         get :index_will_paginate
       end
@@ -249,6 +269,10 @@ describe DummyModelsController, type: :controller do
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
       end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
     context 'when paginating an array' do
@@ -257,7 +281,9 @@ describe DummyModelsController, type: :controller do
       end
 
       it 'responds with page' do
-        expect(response_body(response)['page'].length).to be
+        expect(response_body(response)['page'].length).to(
+          be Wor::Paginate::Config.default_per_page
+        )
       end
 
       it 'responds with valid page' do
@@ -285,6 +311,10 @@ describe DummyModelsController, type: :controller do
 
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
       end
     end
 
@@ -349,6 +379,10 @@ describe DummyModelsController, type: :controller do
 
       it 'responds with next_page' do
         expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
       end
     end
 

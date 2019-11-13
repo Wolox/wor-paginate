@@ -63,6 +63,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be 2
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be_nil
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be 1
+      end
     end
 
     context 'With param page in 1' do
@@ -96,6 +104,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
     context 'Without specific page' do
@@ -128,6 +144,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
       end
     end
   end
@@ -195,6 +219,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be 2
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be_nil
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be 1
+      end
     end
 
     context 'With param page in 1' do
@@ -228,6 +260,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
+      end
     end
 
     context 'Without specific page' do
@@ -260,6 +300,14 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
       it 'responds with page' do
         expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
+      end
+
+      it 'responds with next_page' do
+        expect(response_body(response)['next_page']).to be 2
+      end
+
+      it 'responds with previous_page' do
+        expect(response_body(response)['previous_page']).to be_nil
       end
     end
   end
