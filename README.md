@@ -88,6 +88,7 @@ The response to the index will then be:
   "total_pages": 2,
   "total_count": 28,
   "current_page": 1,
+  "previous_page": nil,
   "next_page": 2
 }
 ```
