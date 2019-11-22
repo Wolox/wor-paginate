@@ -16,10 +16,10 @@ Wor::Paginate.configure do |config|
 
   # Default: nil
   # Possible values:
-    # Wor::Paginate::Adapters::KaminariAlreadyPaginated
-    # Wor::Paginate::Adapters::WillPaginateAlreadyPaginated
-    # Wor::Paginate::Adapters::WillPaginate
-    # Wor::Paginate::Adapters::Kaminari
-    # Wor::Paginate::Adapters::ActiveRecord
-    # Wor::Paginate::Adapters::Enumerable
+  # Wor::Paginate::Adapters::KaminariAlreadyPaginated
+  # Wor::Paginate::Adapters::WillPaginateAlreadyPaginated
+  # Wor::Paginate::Adapters::WillPaginate
+  # Wor::Paginate::Adapters::Kaminari
+  # Wor::Paginate::Adapters::ActiveRecord
+  # Wor::Paginate::Adapters::Enumerable
 end
