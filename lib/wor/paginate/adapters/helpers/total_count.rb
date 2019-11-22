@@ -4,7 +4,7 @@ module Wor
       module Helpers
         module TotalCount
           def total_count
-            @content_size ||= @content.size
+            @content_size ||= @content.reorder(nil).size
             return @content_size.keys.size if @content_size.is_a? Hash
 
             @content_size
