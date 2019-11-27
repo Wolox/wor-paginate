@@ -17,9 +17,9 @@ module Wor
     def self.configure
       yield Config
 
-      if ADAPTERS.exclude?(Config.default_adapter) && !Config.default_adapter.nil?
-        raise Exceptions::NoPaginationAdapter
-      end
+      return if ADAPTERS.include?(Config.default_adapter) || Config.default_adapter.nil?
+
+      raise Exceptions::NoPaginationAdapter
     end
   end
 end
