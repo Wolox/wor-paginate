@@ -16,6 +16,10 @@ module Wor
   module Paginate
     def self.configure
       yield Config
+
+      if ADAPTERS.exclude?(Config.default_adapter) && !Config.default_adapter.nil?
+        raise Exceptions::NoPaginationAdapter
+      end
     end
   end
 end

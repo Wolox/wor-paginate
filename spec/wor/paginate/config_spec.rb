@@ -17,7 +17,7 @@ describe Wor::Paginate::Config, type: :controller do
     end
   end
 
-  described_class::DEFAULTS_CONFIGS.each do |attribute, _value|
+  described_class::DEFAULTS_CONFIGS.except(:default_adapter).each do |attribute, _value|
     context "changing #{attribute}" do
       let!(:n) { rand(300) }
 
