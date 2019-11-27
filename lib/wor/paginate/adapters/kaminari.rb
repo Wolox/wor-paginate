@@ -13,6 +13,10 @@ module Wor
           @paginated_content ||= @content.page(@page).per(@limit)
         end
 
+        def previous_page
+          paginated_content.prev_page
+        end
+
         delegate :count, :total_count, :total_pages, :next_page, to: :paginated_content
       end
     end

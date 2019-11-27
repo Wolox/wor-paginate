@@ -1,8 +1,12 @@
+require 'support/shared_context/default_pagination_params'
+require 'support/shared_context/page_two_pag_params'
+require 'support/shared_examples/proper_pagination_params'
 require 'spec_helper'
 
 describe DummyModelsWithoutGemsController, type: :controller do
   describe '#index' do
-    let!(:dummy_models) { create_list(:dummy_model, 28) }
+    let!(:model_count) { 28 }
+    let!(:dummy_models) { create_list(:dummy_model, model_count) }
     let(:expected_list) do
       dummy_models.first(25).map do |dummy|
         { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
@@ -23,117 +27,59 @@ describe DummyModelsWithoutGemsController, type: :controller do
       end
     end
 
-    context 'With param page in 2' do
+    context 'with param page in 2' do
+      before do
+        expected_list
+        get :index, params: { page: 2 }
+      end
+
       let(:expected_list) do
         dummy_models.slice(25, 25).first(3).map do |dummy|
           { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
         end
       end
 
-      before do
-        expected_list
-        get :index, params: { page: 2 }
-      end
+      include_context 'with param page in 2'
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
-        )
-      end
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
       end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to(
-          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
-        )
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be 2
-      end
     end
 
-    context 'With param page in 1' do
+    context 'with param page in 1' do
       before do
         get :index, params: { page: 1 }
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
+      include_context 'with default pagination params'
+
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
       end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
-      end
     end
 
-    context 'Without specific page' do
+    context 'without specific page' do
       before do
         get :index
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
+      include_context 'with default pagination params'
+
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
-      end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
     end
   end
 
   describe '#index_scoped' do
-    let!(:dummy_models) { create_list(:dummy_model, 28) }
+    let!(:model_count) { 28 }
+    let!(:dummy_models) { create_list(:dummy_model, model_count) }
     let(:expected_list) do
       create_list(:dummy_model, 15, something: -3)
       DummyModel.some_scope.first(25).map do |dummy|
@@ -155,111 +101,52 @@ describe DummyModelsWithoutGemsController, type: :controller do
       end
     end
 
-    context 'With param page in 2' do
+    context 'with param page in 2' do
+      before do
+        expected_list
+        get :index, params: { page: 2 }
+      end
+
       let(:expected_list) do
         dummy_models.slice(25, 25).first(3).map do |dummy|
           { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
         end
       end
 
-      before do
-        expected_list
-        get :index, params: { page: 2 }
-      end
+      include_context 'with param page in 2'
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
-        )
-      end
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
       end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to(
-          be(DummyModel.count - Wor::Paginate::Config.default_per_page)
-        )
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be 2
-      end
     end
 
-    context 'With param page in 1' do
+    context 'with param page in 1' do
       before do
         get :index, params: { page: 1 }
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
+      include_context 'with default pagination params'
+
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
       end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
-      end
     end
 
-    context 'Without specific page' do
+    context 'without specific page' do
       before do
         get :index
       end
 
-      it 'responds with items' do
-        expect(response_body(response)['page'].length).to(
-          be Wor::Paginate::Config.default_per_page
-        )
-      end
+      include_context 'with default pagination params'
+
+      include_examples 'proper pagination params'
 
       it 'responds with valid items' do
         expect(response_body(response)['page']).to eq expected_list
-      end
-
-      it 'responds with count' do
-        expect(response_body(response)['count']).to be Wor::Paginate::Config.default_per_page
-      end
-
-      it 'responds with total_count' do
-        expect(response_body(response)['total_count']).to be dummy_models.count
-      end
-
-      it 'responds with total_pages' do
-        total_pages = (dummy_models.count / Wor::Paginate::Config.default_per_page.to_f).ceil
-        expect(response_body(response)['total_pages']).to be total_pages
-      end
-
-      it 'responds with page' do
-        expect(response_body(response)['current_page']).to be Wor::Paginate::Config.default_page
       end
     end
   end
