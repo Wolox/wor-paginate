@@ -1,5 +1,10 @@
 ## Change log
 
+### V0.1.9
+* [#88](https://github.com/Wolox/wor-paginate/pull/88) Default adapter - [@mtejedorwolox](https://github.com/mtejedorwolox).
+* [#87](https://github.com/Wolox/wor-paginate/pull/87) Supporting expect(response).to be_paginated - [@mnmallea](https://github.com/mnmallea).
+* [#86](https://github.com/Wolox/wor-paginate/pull/86) Added previous_page parameter - [@juanpablo-rojas](https://github.com/juanpablo-rojas).
+
 ### V0.1.8
 * [#85](https://github.com/Wolox/wor-paginate/pull/85) Delete max Railties dependency in gemspec - [@lucasvoboril](https://github.com/lucasvoboril).
 
