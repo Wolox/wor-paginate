@@ -28,9 +28,14 @@ end
 
 RSpec::Matchers.define :be_paginated do
   match do |actual_response|
+    response = parse_response(actual_response)
     formatter = @custom_formatter || Wor::Paginate::Formatter
     @formatted_keys = formatter.new(MockedAdapter.new).format.as_json.keys
-    actual_response.keys == @formatted_keys
+    response.keys == @formatted_keys
+  end
+
+  def parse_response(response)
+    response.is_a?(Hash) ? response : JSON.parse(response.body)
   end
 
   chain :with do |custom_formatter|
@@ -38,10 +43,11 @@ RSpec::Matchers.define :be_paginated do
   end
 
   failure_message do |actual_response|
-    "expected that #{actual_response} to be paginated with keys #{@formatted_keys}"
+    "expected that #{parse_response(actual_response)} to be paginated with keys #{@formatted_keys}"
   end
 
   failure_message_when_negated do |actual_response|
-    "expected that #{actual_response} not to be paginated with keys #{@formatted_keys}"
+    "expected that #{parse_response(actual_response)} not " \
+     "to be paginated with keys #{@formatted_keys}"
   end
 end
