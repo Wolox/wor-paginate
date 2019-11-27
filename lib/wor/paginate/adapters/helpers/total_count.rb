@@ -4,11 +4,10 @@ module Wor
       module Helpers
         module TotalCount
           def total_count
-            content = @content.reorder(nil)
-            content_size = content.size
-            return content.to_a.size if content_size.is_a? Hash
+            @content_size ||= @content.reorder(nil).size
+            return @content_size.keys.size if @content_size.is_a? Hash
 
-            content_size
+            @content_size
           end
         end
       end

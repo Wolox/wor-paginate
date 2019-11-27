@@ -32,8 +32,9 @@ module Wor
     end
 
     def find_adapter_for_content(content, options)
-      ADAPTERS.map { |adapter| adapter.new(content, page(options), limit(options)) }
-              .find(&:adapt?)
+      Config.default_adapter&.new(content, page(options), limit(options)) ||
+        ADAPTERS.map { |adapter| adapter.new(content, page(options), limit(options)) }
+                .find(&:adapt?)
     end
 
     def page(options)

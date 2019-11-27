@@ -5,6 +5,7 @@ AllCops:
     - spec/dummy/db/**/*
     - spec/dummy/config/**/*
     - spec/spec_helper.rb
+  TargetRubyVersion: 2.3.8
 
 Documentation:
   Enabled: false

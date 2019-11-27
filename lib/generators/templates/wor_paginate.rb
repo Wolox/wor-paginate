@@ -10,4 +10,16 @@ Wor::Paginate.configure do |config|
   # For more info about available methods for formatters see:
   # https://github.com/Wolox/wor-paginate/blob/master/lib/wor/paginate/formatter.rb
   # config.formatter = Wor::Paginate::Formatter
+
+  # Configure a default adapter to use on pagination
+  # config.default_adapter = nil
+
+  # Default: nil
+  # Possible values:
+  # Wor::Paginate::Adapters::KaminariAlreadyPaginated
+  # Wor::Paginate::Adapters::WillPaginateAlreadyPaginated
+  # Wor::Paginate::Adapters::WillPaginate
+  # Wor::Paginate::Adapters::Kaminari
+  # Wor::Paginate::Adapters::ActiveRecord
+  # Wor::Paginate::Adapters::Enumerable
 end
