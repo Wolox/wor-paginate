@@ -1,5 +1,8 @@
 ## Change log
 
+### V0.1.10
+* [#90](https://github.com/Wolox/wor-paginate/pull/90) Verify that default adapter adapts - [@mtejedorwolox](https://github.com/mtejedorwolox).
+
 ### V0.1.9
 * [#88](https://github.com/Wolox/wor-paginate/pull/88) Default adapter - [@mtejedorwolox](https://github.com/mtejedorwolox).
 * [#87](https://github.com/Wolox/wor-paginate/pull/87) Supporting expect(response).to be_paginated - [@mnmallea](https://github.com/mnmallea).
