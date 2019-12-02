@@ -26,4 +26,20 @@ shared_examples 'proper pagination params' do
   it 'responds with next_page' do
     expect(response_body(response)['next_page']).to be pagination_params[:next_page]
   end
+
+  get_page_from_uri = lambda { |uri|
+    uri ? Rack::Utils.parse_query(URI.parse(uri).query)['page'].to_i : nil
+  }
+
+  it 'responds with previous_page_url' do
+    uri = response_body(response)['previous_page_url']
+    page = get_page_from_uri.call(uri)
+    expect(page).to be pagination_params[:previous_page]
+  end
+
+  it 'responds with next_page_url' do
+    uri = response_body(response)['next_page_url']
+    page = get_page_from_uri.call(uri)
+    expect(page).to be pagination_params[:next_page]
+  end
 end
