@@ -1,6 +1,9 @@
+require_relative 'utils/uri_helper'
+
 module Wor
   module Paginate
     class Formatter
+      include Utils::UriHelper
       attr_accessor :adapter, :content, :formatter, :options
 
       def initialize(adapter, options = {})
@@ -8,7 +11,7 @@ module Wor
         @options = options
       end
 
-      def format # rubocop:disable Metrics/MethodLength
+      def format # rubocop: disable Metrics/MethodLength
         {
           page: serialized_content,
           count: count,
@@ -17,8 +20,8 @@ module Wor
           current_page: current_page,
           previous_page: previous_page,
           next_page: next_page,
-          next_page_url: options[:_links][:next_page_url],
-          previous_page_url: options[:_links][:previous_page_url]
+          next_page_url: next_page_url,
+          previous_page_url: previous_page_url
         }
       end
 
@@ -47,6 +50,22 @@ module Wor
 
       def serializer
         options[:each_serializer]
+      end
+
+      def next_page_url
+        return nil unless next_page
+
+        replace_query_params(current_url, page: next_page)
+      end
+
+      def previous_page_url
+        return nil unless previous_page
+
+        replace_query_params(current_url, page: previous_page)
+      end
+
+      def current_url
+        options[:_current_url]
       end
     end
   end
