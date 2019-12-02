@@ -8,7 +8,7 @@ module Wor
         @options = options
       end
 
-      def format
+      def format # rubocop:disable Metrics/MethodLength
         {
           page: serialized_content,
           count: count,
@@ -16,7 +16,9 @@ module Wor
           total_count: total_count,
           current_page: current_page,
           previous_page: previous_page,
-          next_page: next_page
+          next_page: next_page,
+          next_page_url: options[:_links][:next_page_url],
+          previous_page_url: options[:_links][:previous_page_url]
         }
       end
 
