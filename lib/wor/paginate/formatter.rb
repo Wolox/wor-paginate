@@ -53,15 +53,17 @@ module Wor
       end
 
       def next_page_url
-        return nil unless next_page
-
-        replace_query_params(current_url, page: next_page)
+        page_url(next_page)
       end
 
       def previous_page_url
-        return nil unless previous_page
+        page_url(previous_page)
+      end
 
-        replace_query_params(current_url, page: previous_page)
+      def page_url(page)
+        return nil unless page
+
+        replace_query_params(current_url, page: page)
       end
 
       def current_url
