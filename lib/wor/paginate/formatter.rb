@@ -20,8 +20,8 @@ module Wor
           current_page: current_page,
           previous_page: previous_page,
           next_page: next_page,
-          next_page_url: next_page_url,
-          previous_page_url: previous_page_url
+          next_page_url: page_url(next_page),
+          previous_page_url: page_url(previous_page)
         }
       end
 
@@ -50,14 +50,6 @@ module Wor
 
       def serializer
         options[:each_serializer]
-      end
-
-      def next_page_url
-        page_url(next_page)
-      end
-
-      def previous_page_url
-        page_url(previous_page)
       end
 
       def page_url(page)
