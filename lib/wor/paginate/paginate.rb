@@ -20,7 +20,8 @@ module Wor
     def paginate(content, options = {})
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
-      formatter_class(options).new(adapter, options).format
+      formatter_class(options).new(adapter, options.merge(_current_url: request.original_url))
+                              .format
     end
 
     def render_paginate_with_include(content, options)

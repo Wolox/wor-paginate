@@ -89,7 +89,9 @@ The response to the index will then be:
   "total_count": 28,
   "current_page": 1,
   "previous_page": null,
-  "next_page": 2
+  "next_page": 2,
+  "previous_page_url": null,
+  "next_page_url": "http://api.example.com/users?page=2
 }
 ```
 

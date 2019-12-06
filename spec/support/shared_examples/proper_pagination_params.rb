@@ -1,3 +1,5 @@
+require_relative '../helpers/uri_parser.rb'
+
 shared_examples 'proper pagination params' do
   it 'responds with page' do
     expect(response_body(response)['page'].length).to be pagination_params[:page]
@@ -25,5 +27,17 @@ shared_examples 'proper pagination params' do
 
   it 'responds with next_page' do
     expect(response_body(response)['next_page']).to be pagination_params[:next_page]
+  end
+
+  it 'responds with previous_page_url' do
+    uri = response_body(response)['previous_page_url']
+    page = UriParser.get_page_from(uri)
+    expect(page).to be pagination_params[:previous_page]
+  end
+
+  it 'responds with next_page_url' do
+    uri = response_body(response)['next_page_url']
+    page = UriParser.get_page_from(uri)
+    expect(page).to be pagination_params[:next_page]
   end
 end
