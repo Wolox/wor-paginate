@@ -29,7 +29,7 @@ module Wor
     end
 
     def formatter_class(options)
-      options[:formatter].presence || Formatter
+      options[:formatter].presence || Config.formatter
     end
 
     def find_adapter_for_content(content, options)
