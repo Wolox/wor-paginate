@@ -211,7 +211,6 @@ end
 ## About ##
 
 The current maintainers of this gem are :
-* [Lucas Voboril](https://github.com/lucasVoboril)
 * [Martín Mallea](https://github.com/mnmallea)
 
 This project was developed by:
