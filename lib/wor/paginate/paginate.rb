@@ -18,9 +18,15 @@ module Wor
     end
 
     def paginate(content, options = {})
+      current_url = request.original_url
+
+      if (preserve_records = options[:preserve_records])
+        content, current_url = PreserveRecordsHelper.new(content, current_url, preserve_records).call
+      end
+
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
-      formatter_class(options).new(adapter, options.merge(_current_url: request.original_url))
+      formatter_class(options).new(adapter, options.merge(_current_url: current_url))
                               .format
     end
 
