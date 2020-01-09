@@ -44,12 +44,4 @@ class DummyModelsController < ApplicationController
   def index_group_by
     render_paginated DummyModel.ocurrences_of_name
   end
-
-  def index_infinite_scroll_date
-    render_paginated DummyModel, preserve_records: true
-  end
-
-  def index_infinite_scroll_id
-    render_paginated DummyModel, preserve_records: { by: :id }
-  end
 end

@@ -1,3 +1,5 @@
+require_relative 'utils/preserve_records_helper'
+
 module Wor
   module Paginate
     # The order of this array is important!
@@ -21,7 +23,9 @@ module Wor
       current_url = request.original_url
 
       if (preserve_records = options[:preserve_records])
-        content, current_url = PreserveRecordsHelper.new(content, current_url, preserve_records).call
+        content, current_url = Wor::Paginate::Utils::PreserveRecordsHelper
+                               .new(content, current_url,
+                                    preserve_records.is_a?(Hash) ? preserve_records : {}).call
       end
 
       adapter = find_adapter_for_content(content, options)
