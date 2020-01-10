@@ -23,7 +23,8 @@ module Wor
           @by ||= begin
             by = options[:by]&.to_sym || :timestamp
             raise ArgumentError, "'by' option shuld be 'id' or 'timestamp'" unless
-            %i[timestamp id].include? by
+              %i[timestamp id].include? by
+
             by
           end
         end
@@ -39,15 +40,19 @@ module Wor
 
         def last_value
           @last_value ||= begin
-            query_params = UriHelper.query_params(url)
+            query_param_value = UriHelper.query_params(url)[query_param_name]
 
-            query_params[query_param_name] || case by
-                                              when :timestamp
-                                                Time.zone.now
-                                              when :id
-                                                content.maximum(field)
-                                              end
+            case by
+            when :timestamp
+              query_param_value ? Time.parse(query_param_value) : now_timestamp
+            when :id
+              query_param_value || content.maximum(field)
+            end
           end
+        end
+
+        def now_timestamp
+          Time.zone.now.iso8601(10)
         end
 
         def query_param_name
