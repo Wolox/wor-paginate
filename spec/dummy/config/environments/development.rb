@@ -43,5 +43,5 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Whitelists all hosts on development
-  config.hosts.clear
+  config.hosts.clear if Rails::VERSION::MAJOR >= 6
 end
