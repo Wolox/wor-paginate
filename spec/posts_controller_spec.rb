@@ -1,5 +1,5 @@
-require 'support/shared_context/default_pagination_params'
-require 'support/shared_examples/proper_pagination_params'
+require 'support/shared_examples/infinite_scroll'
+require 'support/time_helpers'
 require 'spec_helper'
 
 describe PostsController, type: :request do

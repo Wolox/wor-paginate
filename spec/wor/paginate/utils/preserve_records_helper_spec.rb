@@ -10,6 +10,9 @@ describe Wor::Paginate::Utils::PreserveRecordsHelper do
     let(:content) { create_list(:post, 3) }
     let(:query_params) { '' }
 
+    before { freeze_time }
+    after { travel_back }
+
     context 'with default options' do
       let(:options) { {} }
 
@@ -21,7 +24,7 @@ describe Wor::Paginate::Utils::PreserveRecordsHelper do
 
         it 'sets expected query param' do
           expect(Wor::Paginate::Utils::UriHelper.query_params(call.second))
-            .to include('created_at_let' => Time.zone.now.to_s)
+            .to include('created_at_let' => Time.zone.now.iso8601(10))
         end
 
         it 'returns the expected content' do
