@@ -40,6 +40,6 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   
-  # Fix for withelisting test domain on Rails 6
-  config.hosts << \www.example.com\
+  # Whitelists all hosts on development
+  config.hosts.clear
 end

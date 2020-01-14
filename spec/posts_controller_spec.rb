@@ -2,7 +2,7 @@ require 'support/shared_context/default_pagination_params'
 require 'support/shared_examples/proper_pagination_params'
 require 'spec_helper'
 
-describe DummyModelsController, type: :request do
+describe PostsController, type: :request do
   describe '#index' do
     let(:posts) { create_list(:post, 3) }
     let(:new_posts) { create_list(:post, 2) }
