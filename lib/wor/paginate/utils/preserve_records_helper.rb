@@ -11,8 +11,8 @@ module Wor
         end
 
         def call
-          content = self.content.where("#{field} <= :last_value", last_value: last_value)
-          [content, UriHelper.replace_query_params(url, query_param_name => last_value)]
+          [content.where("#{field} <= :last_value", last_value: last_value),
+           UriHelper.replace_query_params(url, query_param_name => last_value)]
         end
 
         private
