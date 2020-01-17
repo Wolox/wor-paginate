@@ -133,6 +133,36 @@ class CustomSerializer < ActiveModel::Serializer
 end
 ```
 
+##### preserve_records
+> WARNING: This option only works with an ActiveRecord collection.
+
+Preserve records option can be added to `render_paginated` to mantain current records. This allow to navigate pages like an infinite scroll without adding new records when switching pages.
+
+- Timestamp mode (default)
+```ruby
+def index
+  render_paginated SomeModel, preserve_records: true 
+end
+
+# You can customize the field used to preserve this records (default is 'created_at')
+def index
+  render_paginated SomeModel, preserve_records: { by: :timestamp, field: :custom_time_field } 
+end
+```
+
+- PK mode
+```ruby
+def index
+  render_paginated SomeModel, preserve_records: { by: :id } 
+end
+
+# You can customize the field used to preserve this records (default is 'id')
+def index
+  render_paginated SomeModel, preserve_records: { by: :id, field: :my_custom_id_field }
+end
+```
+
+
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
