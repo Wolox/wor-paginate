@@ -10,6 +10,7 @@ require_relative 'paginate/exceptions/invalid_page_number'
 require_relative 'paginate/exceptions/invalid_limit_number'
 require_relative 'paginate/formatters/base'
 require_relative 'paginate/formatters/panko_formatter'
+require_relative 'paginate/formatters/ams_formatter'
 require_relative 'paginate/config'
 require_relative 'paginate/paginate'
 
