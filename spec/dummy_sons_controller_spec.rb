@@ -1,5 +1,3 @@
-require 'support/shared_context/default_pagination_params'
-require 'support/shared_examples/proper_pagination_params'
 require 'spec_helper'
 
 describe DummySonsController, type: :controller do

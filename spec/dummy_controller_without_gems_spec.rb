@@ -1,6 +1,3 @@
-require 'support/shared_context/default_pagination_params'
-require 'support/shared_context/page_two_pag_params'
-require 'support/shared_examples/proper_pagination_params'
 require 'spec_helper'
 
 describe DummyModelsWithoutGemsController, type: :controller do
