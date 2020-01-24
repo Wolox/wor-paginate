@@ -29,7 +29,7 @@ end
 RSpec::Matchers.define :be_paginated do
   match do |actual_response|
     response = parse_response(actual_response)
-    formatter = @custom_formatter || Wor::Paginate::Formatter
+    formatter = @custom_formatter || Wor::Paginate::Formatters::Base
     @formatted_keys = formatter.new(MockedAdapter.new, _current_url: 'http://exaple.com/').format.as_json.keys
     response.keys == @formatted_keys
   end

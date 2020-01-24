@@ -143,7 +143,7 @@ or it can also be set as a default in the initializer.
 A new formatter can be created inheriting from the default one. The `format` method should be redefined returning something that can be converted to json.
 
 ```ruby
-class CustomFormatter < Wor::Paginate::Formatter
+class CustomFormatter < Wor::Paginate::Formatters::Base
   def format
     { page: serialized_content, current: current_page }
   end
@@ -195,6 +195,27 @@ describe YourController do
 end
 ```
 
+### Working with panko-serializer
+
+the default formatter is for Active Model Serializer, if you want change it you should replace the formatter to `PankoFormatter`
+
+#### example 
+```ruby
+Wor::Paginate.configure do |config|
+  config.default_per_page = 25
+
+  config.page_param = :page
+  config.per_page_param = :limit
+  config.formatter = Wor::Paginate::Formatters::PankoFormatter
+end
+```
+and next pass the specific serializer that you can use in the specific endpoint
+
+```ruby
+  def index
+    render_paginated DummyModel, each_serializer: DummyModelPankoSerializer
+  end
+```
 ## Contributing
 
 1. Fork it

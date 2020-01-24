@@ -3,12 +3,8 @@ module Wor
     module Formatters
       class PankoFormatter < Base
         def serialized_content
-          serilize_with_panko(serializer)
-        end
-
-        def serilize_with_panko(seriaizer)
           Panko::ArraySerializer.new(paginated_content,
-            each_serializer: serializer).as_json['subjects']
+                                     each_serializer: serializer).to_a
         end
       end
     end
