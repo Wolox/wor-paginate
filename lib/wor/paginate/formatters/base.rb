@@ -39,7 +39,7 @@ module Wor
         end
 
         def serialized_content
-          return paginated_content.map { |it| serializer.new(it, options) } if serializer.present?
+          paginated_content.as_json
         end
 
         def serializer
