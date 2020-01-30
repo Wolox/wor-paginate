@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :dummy_models_without_gems, only: [:index] do
     collection do
-      get :index_paginated
+      get 'index_scoped'
+      get 'index_total_count'
+      get 'index_scoped_total_count'
     end
   end
   resources :dummy_models, only: [:index] do

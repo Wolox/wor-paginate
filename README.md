@@ -133,6 +133,13 @@ class CustomSerializer < ActiveModel::Serializer
 end
 ```
 
+##### total_count
+You can overwrite the `total_count` pagination param by passing it as a single option to the method. This could be used if the whole collection to be paginated is complex and has the risk to broke when counting all the records.
+
+```ruby
+  render_paginated DummyModel, total_count: 50
+```
+
 #### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
