@@ -23,7 +23,7 @@ module Wor
         def by
           @by ||= begin
             by = options[:by]&.to_s || 'timestamp'
-            raise ArgumentError, "'by' option shuld be 'id' or 'timestamp'" unless
+            raise ArgumentError, "'by' option should be 'id' or 'timestamp'" unless
               %w[timestamp id].include? by
             "Wor::Paginate::Utils::PreserveModes::#{by.classify}".constantize
           end
