@@ -49,7 +49,7 @@ describe Wor::Paginate::Config, type: :controller do
 
     after { described_class.reset_adapters! }
 
-    it 'has empty adapters' do
+    it 'has the expected adapters' do
       expect(described_class.adapters.include?(kaminari)).to be false
       expect(described_class.adapters.include?(will_paginate)).to be false
       expect(described_class.adapters.include?(CustomAdapter)).to be true
