@@ -44,4 +44,8 @@ class DummyModelsController < ApplicationController
   def index_group_by
     render_paginated DummyModel.ocurrences_of_name
   end
+
+  def index_custom_adapter
+    render_paginated DummyModel, adapter: CustomAdapter
+  end
 end

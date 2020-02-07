@@ -1,16 +1,5 @@
 module Wor
   module Paginate
-    # The order of this array is important!
-    # In a future release we'll provide an interface to manipulate it
-    ADAPTERS = [
-      Adapters::KaminariAlreadyPaginated,
-      Adapters::WillPaginateAlreadyPaginated,
-      Adapters::WillPaginate,
-      Adapters::Kaminari,
-      Adapters::ActiveRecord,
-      Adapters::Enumerable
-    ].freeze
-
     def render_paginated(content, options = {})
       return render_paginate_with_include(content, options) if includes?(options)
 
@@ -18,8 +7,10 @@ module Wor
     end
 
     def paginate(content, options = {})
-      adapter = find_adapter_for_content(content, options)
+      adapter = instance_adapter(options[:adapter], content, options)
+      adapter ||= find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
+
       formatter_class(options).new(adapter, options.merge(_current_url: request.original_url))
                               .format
     end
@@ -35,9 +26,12 @@ module Wor
     def find_adapter_for_content(content, options)
       adapters = []
       adapters << Config.default_adapter if Config.default_adapter.present?
-      adapters += ADAPTERS
-      adapters.map { |adapter| adapter.new(content, page(options), limit(options)) }
-              .find(&:adapt?)
+      adapters += Config.adapters
+      adapters.map { |adapter| instance_adapter(adapter, content, options) }.find(&:adapt?)
+    end
+
+    def instance_adapter(adapter, content, options)
+      adapter&.new(content, page(options), limit(options))
     end
 
     def page(options)

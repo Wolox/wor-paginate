@@ -17,6 +17,45 @@ describe Wor::Paginate::Config, type: :controller do
     end
   end
 
+  context 'with default adapters' do
+    described_class::DEFAULT_ADAPTERS.each do |_, value|
+      before { described_class.reset_adapters! }
+
+      it 'has default values' do
+        expect(described_class.adapters.include?(value)).to be true
+      end
+    end
+  end
+
+  context 'when clearing adapters' do
+    before { described_class.empty_adapters }
+
+    after { described_class.reset_adapters! }
+
+    it 'has empty adapters' do
+      expect(described_class.adapters).to be_empty
+    end
+  end
+
+  context 'when adding and removing adapters' do
+    before do
+      described_class.remove_adapter(kaminari)
+      described_class.remove_adapter(will_paginate)
+      described_class.add_adapter(CustomAdapter)
+    end
+
+    let(:kaminari) { described_class::DEFAULT_ADAPTERS[:kaminari] }
+    let(:will_paginate) { described_class::DEFAULT_ADAPTERS[:will_paginate] }
+
+    after { described_class.reset_adapters! }
+
+    it 'has empty adapters' do
+      expect(described_class.adapters.include?(kaminari)).to be false
+      expect(described_class.adapters.include?(will_paginate)).to be false
+      expect(described_class.adapters.include?(CustomAdapter)).to be true
+    end
+  end
+
   described_class::DEFAULTS_CONFIGS.except(:default_adapter).each do |attribute, _value|
     context "changing #{attribute}" do
       let!(:n) { rand(300) }
