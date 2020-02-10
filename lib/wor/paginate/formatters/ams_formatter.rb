@@ -8,7 +8,7 @@ module Wor
 
         def serialized_content
           return serializable_resource.new(paginated_content).as_json unless serializer.present?
-          raise_error unless serializer.respond_to?('_attributes_data')
+          raise_dependency_error unless serializer.respond_to?('_attributes_data')
           paginated_content.map { |item| serializer.new(item, options) }
         end
 
