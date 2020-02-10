@@ -20,17 +20,13 @@ describe DummySonsController, type: :controller do
     end
 
     context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
-      before do
-        get :index
-      end
+      before { get :index }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating with page and limit params' do
@@ -54,15 +50,11 @@ describe DummySonsController, type: :controller do
             next_page: 4 }
         end
 
-        before do
-          get :index_with_params
-        end
+        before { get :index_with_params }
 
         include_examples 'proper pagination params'
 
-        it 'responds with valid page' do
-          expect(response_body(response)['page']).to eq expected_list
-        end
+        include_examples 'valid page'
       end
 
       context 'with a really high limit passed by option' do
@@ -86,65 +78,47 @@ describe DummySonsController, type: :controller do
             current_page: Wor::Paginate::Config.default_page, next_page: 2 }
         end
 
-        before do
-          get :index_with_high_limit
-        end
+        before { get :index_with_high_limit }
 
         include_examples 'proper pagination params'
 
-        it 'responds with valid page' do
-          expect(response_body(response)['page']).to eq expected_list
-        end
+        include_examples 'valid page'
       end
     end
 
     context 'when paginating an ActiveRecord with a scope' do
-      before do
-        # Requiring both kaminari and will_paginate breaks scope pagination
-        get :index_scoped
-      end
+      # Requiring both kaminari and will_paginate breaks scope pagination
+      before { get :index_scoped }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord paginated with kaminari' do
-      before do
-        get :index_kaminari
-      end
+      before { get :index_kaminari }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord paginated with will_paginate' do
-      before do
-        get :index_will_paginate
-      end
+      before { get :index_will_paginate }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an array' do
-      before do
-        get :index_array
-      end
+      before { get :index_array }
 
       include_context 'with default pagination params'
 
@@ -157,17 +131,15 @@ describe DummySonsController, type: :controller do
 
     context 'when paginating arrays with param page in -1' do
       it 'throws exception' do
-        expect do
-          get :index_array, params: { page: -1 }
-        end.to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
+        expect { get :index_array, params: { page: -1 } }
+          .to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
       end
     end
 
     context 'when paginating arrays with per page in -1' do
       it 'throws exception' do
-        expect do
-          get :index_array, params: { per: -1 }
-        end.to raise_exception(Wor::Paginate::Exceptions::InvalidLimitNumber)
+        expect { get :index_array, params: { per: -1 } }
+          .to raise_exception(Wor::Paginate::Exceptions::InvalidLimitNumber)
       end
     end
 
@@ -179,23 +151,17 @@ describe DummySonsController, type: :controller do
     end
 
     context 'when paginating an ActiveRecord with a custom serializer' do
-      before do
-        get :index_each_serializer
-      end
+      before { get :index_each_serializer }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord with a custom formatter' do
-      before do
-        get :index_custom_formatter
-      end
+      before { get :index_custom_formatter }
 
       it 'doesn\'t respond with page in the default key' do
         expect(response_body(response)['page']).to be_nil

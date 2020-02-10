@@ -6,15 +6,11 @@ describe DummyModelsTotalCountController, type: :controller do
     let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
 
     context 'when paginating an ActiveRecord with no previous pagination but kaminari installed' do
-      before do
-        get :index
-      end
+      before { get :index }
 
       include_examples 'total count pagination param'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating with page and limit params' do
@@ -25,9 +21,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
         include_examples 'total count pagination param'
 
-        it 'responds with valid page' do
-          expect(response_body(response)['page']).to eq expected_list
-        end
+        include_examples 'valid page'
       end
 
       context 'with a really high limit passed by option' do
@@ -37,9 +31,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
         include_examples 'total count pagination param'
 
-        it 'responds with valid page' do
-          expect(response_body(response)['page']).to eq expected_list
-        end
+        include_examples 'valid page'
       end
     end
 
@@ -48,9 +40,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
       include_examples 'total count pagination param'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord paginated with kaminari' do
@@ -58,9 +48,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
       include_examples 'total count pagination param'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord paginated with will_paginate' do
@@ -68,9 +56,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
       include_examples 'total count pagination param'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an array' do
@@ -90,9 +76,7 @@ describe DummyModelsTotalCountController, type: :controller do
 
       include_examples 'total count pagination param'
 
-      it 'responds with valid page' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'when paginating an ActiveRecord with a group by query' do
