@@ -9,7 +9,7 @@ module Wor
         def serialized_content
           return serializable_resource.new(paginated_content).as_json unless serializer.present?
           raise_error unless serializer.respond_to?('_attributes_data')
-          paginated_content.map { |it| serializer.new(it, options) }
+          paginated_content.map { |item| serializer.new(item, options) }
         end
 
         private
@@ -22,7 +22,7 @@ module Wor
           defined? serializable_resource
         end
 
-        def raise_error
+        def raise_dependency_error
           raise Wor::Paginate::Exceptions::DependencyError
         end
       end
