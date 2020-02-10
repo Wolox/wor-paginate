@@ -9,7 +9,11 @@ module Wor
           uri.to_s
         end
 
-        module_function :replace_query_params
+        def query_params(uri_string)
+          Rack::Utils.parse_query(URI.parse(uri_string).query).with_indifferent_access
+        end
+
+        module_function :replace_query_params, :query_params
       end
     end
   end

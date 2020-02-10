@@ -22,6 +22,7 @@ end
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Response::JSONParser, type: :controller
+  config.include Response::JSONParser, type: :request
 end
 
 require 'rspec/rails'
