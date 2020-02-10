@@ -33,4 +33,10 @@ Rails.application.routes.draw do
       get 'index_custom_formatter'
     end
   end
+
+  resources :posts, only: :index do
+    collection do
+      get 'index_by_id'
+    end
+  end
 end
