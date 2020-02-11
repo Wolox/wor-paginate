@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'index_each_serializer'
       get 'index_custom_formatter'
       get 'index_group_by'
+      get 'index_panko_formatter'
     end
   end
 

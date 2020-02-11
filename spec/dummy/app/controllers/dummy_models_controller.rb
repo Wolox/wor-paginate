@@ -44,4 +44,10 @@ class DummyModelsController < ApplicationController
   def index_group_by
     render_paginated DummyModel.ocurrences_of_name
   end
+
+  def index_panko_formatter
+    render_paginated DummyModel,
+                     each_serializer: DummyModelWithPankoSerializer,
+                     formatter: Wor::Paginate::Formatters::PankoFormatter
+  end
 end

@@ -214,5 +214,27 @@ describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_count']).to eq 3
       end
     end
+
+    context 'when paginating an ActiveRecord with panko formatter' do
+      let(:expected_list) do
+        dummy_models.first(25).map do |dummy|
+          { 'something' => dummy.something,
+            'id' => dummy.id,
+            'name' => dummy.name }
+        end
+      end
+
+      before do
+        get :index_panko_formatter
+      end
+
+      it 'respond with page in the default key' do
+        expect(response_body(response)).to be_paginated
+      end
+
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+    end
   end
 end

@@ -3,8 +3,8 @@ module Wor
     module Formatters
       class AmsFormatter < Base
         include ActiveSupport::Callbacks
-        define_callbacks :raise_error
-        set_callback :raise_error, :before, :serialized_content, unless: :ams_defined?
+        define_callbacks :raise_dependency_error
+        set_callback :raise_dependency_error, :before, :serialized_content, unless: :ams_defined?
 
         def serialized_content
           return serializable_resource.new(paginated_content).as_json unless serializer.present?

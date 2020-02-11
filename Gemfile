@@ -23,6 +23,7 @@ group :development, :test do
   gem 'faker', '~> 1.7.0'
   gem 'generator_spec', '~> 0.9.0'
   gem 'kaminari', '~> 0.17.0'
+  gem 'panko_serializer', '~> 0.7.2'
   gem 'rake', '~> 10.0'
   gem 'rspec', '~> 3.0'
   gem 'rspec-rails', '~> 3.6.0'
