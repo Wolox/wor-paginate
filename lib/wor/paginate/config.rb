@@ -39,10 +39,10 @@ module Wor
       end
 
       def remove_adapter(adapter)
-        @adapters.delete(adapter) if @adapters.include? adapter
+        @adapters.delete(adapter)
       end
 
-      def empty_adapters
+      def clear_adapters
         @adapters.clear
       end
 

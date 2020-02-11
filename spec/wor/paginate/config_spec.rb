@@ -28,7 +28,7 @@ describe Wor::Paginate::Config, type: :controller do
   end
 
   context 'when clearing adapters' do
-    before { described_class.empty_adapters }
+    before { described_class.clear_adapters }
 
     after { described_class.reset_adapters! }
 

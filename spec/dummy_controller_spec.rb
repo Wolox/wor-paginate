@@ -224,11 +224,7 @@ describe DummyModelsController, type: :controller do
         get :index_custom_adapter
       end
 
-      let(:expected_list) do
-        dummy_models.first(8).map do |dummy|
-          { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
-        end
-      end
+      let(:expected_list) { dummy_models.first(8).as_json(only: %i[id name something]) }
 
       include_examples 'proper pagination params'
 
@@ -238,7 +234,7 @@ describe DummyModelsController, type: :controller do
     end
 
     context 'when deleting all the adapters' do
-      before { Wor::Paginate::Config.empty_adapters }
+      before { Wor::Paginate::Config.clear_adapters }
 
       after { Wor::Paginate::Config.reset_adapters! }
 

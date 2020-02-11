@@ -14,6 +14,7 @@ Wor::Paginate
       - [Custom serializers](#custom-serializers)
       - [Custom options](#custom-options)
       - [Custom formatters](#custom-formatters)
+      - [Custom adapters](#custom-adapters)
     - [Working with Kaminari or will_paginate](#working-with-kaminari-or-will_paginate)
     - [Test helpers](#test-helpers)
   - [Contributing](#contributing)
@@ -163,7 +164,7 @@ end
 ```
 
 
-#### Custom formatters
+### Custom formatters
 A formatter is an object that defines the output of the render_paginated method. In case the application needs a different format for a request, it can be passed to the `render_paginated` method using the `formatter` option:
 ```ruby
 render_paginated DummyModel, formatter: CustomFormatter
@@ -187,6 +188,71 @@ Available helper methods are:
 * `total_pages`: number of pages given the current limit (post-pagination)
 * `paginated_content`: its class depends on the original content passed to render_paginated, it's the paginated but not yet serialized content.
 * `serialized_content`: array with all the items after going through the serializer (either the default or a supplied one)
+
+
+### Custom adapters
+An adapter is an object that defines how to show the rendered content, and how to calculate several methods of the pagination, such as 'total_count', 'total_pages', 'paginated_content' among others. In case the application needs a different adapter or a custom one, it can be passed to the `render_paginated` method using the `adapter` option:
+```ruby
+render_paginated DummyModel, adapter: CustomAdapter
+```
+or it can also be set as a default in the initializer.
+
+A new adapter can be created inheriting from the default Base Adapter. Some methods must be redefined in order to make the adapter "adaptable" to the content that will be rendered.
+Below is an example of a simple posible CustomAdapter that extends from the base Adapter.
+
+```ruby
+class CustomAdapter < Wor::Paginate::Adapters::Base
+  def required_methods
+    %i[count]
+  end
+
+  def paginated_content
+    @paginated_content ||= @content.first(5)
+  end
+
+  def total_pages
+    (total_count / @limit.to_f).ceil
+  end
+
+  def total_count
+    @content.count
+  end
+
+  delegate :count, to: :paginated_content
+end
+```
+Here's a brief explanation on every overwritten method in this CustomAdapter example:
+##### required_methods:
+These will be the methods (as symbols) that the content to be rendered has to support. The next expression will be evaluated for every method added here: `@content.respond_to? method`. All required_methods must answer `true` to the previous expression, in order to make the adapter "adaptable" for the content. For example, if we rendered an ActiveRecord_Relation, this CustomAdapter will be adaptable because an ActiveRecord_Relation responds to the `count` method. At least one symbol has to be returned in this method, otherwise the adapter won't be able to render content. 
+
+##### paginated_content:
+This is how the content will be shown. As the content comes in the inherited instance variable `@content`, we can transform the content however we want. In the CustomAdapter example, will always be shown the first 5 records.
+
+##### total_pages:
+This could be defined as the number of pages, given the limit requested. As the other values, this can be a custom number of pages, depending on your needs. For this example, this number is just an integer calculation of the total pages, depending on the limit. Also, like `@content`, we are inheriting the `@limit` variable, which allows us to operate with it however we want.
+
+##### total_count:
+This will be the number that will tell us 'how many records is returning the request'. Again, we can customize it however we want. For this particular example this will be just the count of `@content`.
+
+##### count method as delegate:
+In the end of the CustomAdapter we are delegating the `count` method to the `paginated_content`. Given that we defined the `count` method as a 'required method' for this particular adapter, the adapter has to know "how to calculate" that method, that's why we are defining a `count` method in the delegation. If the content is an ActiveRecord_Relation, for example, this adapter would work, because `paginated_content` would become an ActiveRecord_Relation, which actually knows "how to calculate" the count method. This works as a delegation, because ActiveRecord_Relation has an internal `count` definition, but we would have to provide the needed method definition if it is a custom method, or we want a custom behaviour of a known method.
+
+##### other available methods to overwrite:
+`Wor::Paginate::Adapters::Base` also has implementations for `next_page` and `previous_page` methods (which calculate the number of the next and previous pages, respectively). If you want, you can also overwrite those methods, to calculate custom 'next' and 'previous' page numbers.
+
+To understand better the implementation of the Base Adapter and how you could overwrite methods in order to make a functional Custom Adapter, take a look at its definition in: https://github.com/Wolox/wor-paginate/blob/master/lib/wor/paginate/adapters/base.rb.
+Keep in mind that an instance of your Custom Adapter must answer `true` to the `adapt?` method inherited from the Base Adapter, in order to make it "adaptable" to the content.
+
+#### Adapters Operations
+There are also helper methods available to dynamically operate the gem's adapters, so you can configurate them, whether in the initializer or in an internal part of your application. Once you include the gem, you'll be provided with the following methods, inside the Config module:
+* `Config.add_adapter(adapter)`: Add an specific adapter to the array of the gem's adapters. The 'adapter' variable must be a Class reference to an Adapter Class (that class has to have a similar structure as the CustomAdapter example above).
+* `Config.remove_adapter(adapter)`: Remove an specific adapter from the array of the gem's adapters.
+* `Config.clear_adapters`: This method empties the array of the gem's adapters.
+* `Config.adapters`: Returns all the current internal adapters inside the gem.
+* `Config.reset_adapters!`: This helper resets the gem's adapters to its default array of adapters. You can see how the array of default adapters looks like at the beggining of the `Wor::Paginate::Config` module: https://github.com/Wolox/wor-paginate/blob/master/lib/wor/paginate/config.rb.
+
+When the gem paginates, it tries to adapt the content to the first adapter that is "adaptable" for the content (unless a custom adapter has been passed to render_paginated or a default_adapter has been defined in the initializer). So beware of which adapters (and in which order) are you leaving in the `Config.adapters` array, because depending on those, the gem will try to adapt the content.
+
 
 ### Working with Kaminari or will_paginate
 If either Kaminari or will_paginate are required in the project, Wor::Paginate will use them for pagination with no code or configuration change.
