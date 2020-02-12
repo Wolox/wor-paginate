@@ -158,11 +158,7 @@ describe DummyModelsController, type: :controller do
         get :index_each_serializer
       end
 
-      let(:expected_list) do
-        dummy_models.first(25).map do |dummy|
-          { 'something' => dummy.something }
-        end
-      end
+      let(:expected_list) { dummy_models.first(25).as_json(only: %i[something]) }
 
       include_context 'with default pagination params'
 
@@ -174,13 +170,7 @@ describe DummyModelsController, type: :controller do
     end
 
     context 'when paginating an ActiveRecord with a custom formatter' do
-      let(:expected_list) do
-        dummy_models.first(25).map do |dummy|
-          { 'something' => dummy.something,
-            'id' => dummy.id,
-            'name' => dummy.name }
-        end
-      end
+      let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
 
       before do
         get :index_custom_formatter
@@ -217,12 +207,6 @@ describe DummyModelsController, type: :controller do
 
     context 'when paginating an ActiveRecord with panko formatter' do
       let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
-        dummy_models.first(25).map do |dummy|
-          { 'something' => dummy.something,
-            'id' => dummy.id,
-            'name' => dummy.name }
-        end
-      end
 
       before do
         get :index_panko_formatter
