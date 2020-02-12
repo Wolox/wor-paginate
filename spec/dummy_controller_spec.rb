@@ -216,7 +216,7 @@ describe DummyModelsController, type: :controller do
     end
 
     context 'when paginating an ActiveRecord with panko formatter' do
-      let(:expected_list) do
+      let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
         dummy_models.first(25).map do |dummy|
           { 'something' => dummy.something,
             'id' => dummy.id,
