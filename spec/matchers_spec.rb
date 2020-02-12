@@ -3,11 +3,7 @@ require 'spec_helper'
 describe DummyModelsController, type: :controller do
   let!(:model_count) { 28 }
   let!(:dummy_models) { create_list(:dummy_model, model_count) }
-  let(:expected_list) do
-    dummy_models.first(25).map do |dummy|
-      { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
-    end
-  end
+  let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
 
   describe '#be_paginated' do
     context 'when using response_body' do
