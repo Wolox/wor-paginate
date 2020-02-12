@@ -1,17 +1,10 @@
-require 'support/shared_context/default_pagination_params'
-require 'support/shared_context/page_two_pag_params'
-require 'support/shared_examples/proper_pagination_params'
 require 'spec_helper'
 
 describe DummyModelsWithoutGemsController, type: :controller do
   describe '#index' do
     let!(:model_count) { 28 }
     let!(:dummy_models) { create_list(:dummy_model, model_count) }
-    let(:expected_list) do
-      dummy_models.first(25).map do |dummy|
-        { 'id' => dummy.id, 'name' => dummy.name, 'something' => dummy.something }
-      end
-    end
+    let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
 
     before do
       [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
@@ -21,9 +14,8 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
     context 'with param page in -1' do
       it 'throws exception' do
-        expect do
-          get :index, params: { page: -1 }
-        end.to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
+        expect { get :index, params: { page: -1 } }
+          .to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
       end
     end
 
@@ -43,37 +35,27 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'with param page in 1' do
-      before do
-        get :index, params: { page: 1 }
-      end
+      before { get :index, params: { page: 1 } }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'without specific page' do
-      before do
-        get :index
-      end
+      before { get :index }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
   end
 
@@ -95,9 +77,8 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
     context 'with param page in -1' do
       it 'throws exception' do
-        expect do
-          get :index, params: { page: -1 }
-        end.to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
+        expect { get :index, params: { page: -1 } }
+          .to raise_exception(Wor::Paginate::Exceptions::InvalidPageNumber)
       end
     end
 
@@ -117,37 +98,71 @@ describe DummyModelsWithoutGemsController, type: :controller do
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'with param page in 1' do
-      before do
-        get :index, params: { page: 1 }
-      end
+      before { get :index, params: { page: 1 } }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
-      end
+      include_examples 'valid page'
     end
 
     context 'without specific page' do
-      before do
-        get :index
-      end
+      before { get :index }
 
       include_context 'with default pagination params'
 
       include_examples 'proper pagination params'
 
-      it 'responds with valid items' do
-        expect(response_body(response)['page']).to eq expected_list
+      include_examples 'valid page'
+    end
+  end
+
+  describe '#index_total_count' do
+    subject(:make_request) { get :index_total_count, params: { per: 5 } }
+
+    let!(:model_count) { 9 }
+    let!(:dummy_models) { create_list(:dummy_model, model_count) }
+    let(:expected_list) { dummy_models.first(5).as_json(only: %i[id name something]) }
+
+    before do
+      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
+        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
       end
+    end
+
+    context 'with total_count param' do
+      before { make_request }
+
+      include_examples 'total count pagination param'
+
+      include_examples 'valid page'
+    end
+  end
+
+  describe '#index_scoped_total_count' do
+    subject(:make_request) { get :index_scoped_total_count, params: { per: 5 } }
+
+    let(:expected_list) { dummy_models.first(5).as_json(only: %i[id name something]) }
+    let!(:model_count) { 9 }
+    let!(:dummy_models) { create_list(:dummy_model, model_count) }
+
+    before do
+      [Wor::Paginate::Adapters::Kaminari, Wor::Paginate::Adapters::WillPaginate].each do |klass|
+        allow_any_instance_of(klass).to receive(:adapt?).and_return(false)
+      end
+    end
+
+    context 'with total_count param' do
+      before { make_request }
+
+      include_examples 'total count pagination param'
+
+      include_examples 'valid page'
     end
   end
 end

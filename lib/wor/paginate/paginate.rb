@@ -1,3 +1,5 @@
+require_relative 'utils/preserve_records_helper'
+
 module Wor
   module Paginate
     # The order of this array is important!
@@ -18,9 +20,18 @@ module Wor
     end
 
     def paginate(content, options = {})
+      current_url = request.original_url
+
+      if (preserve_records = options[:preserve_records])
+        content, current_url = Wor::Paginate::Utils::PreserveRecordsHelper
+                               .new(content, current_url,
+                                    preserve_records.is_a?(Hash) ? preserve_records : {}).call
+      end
+
       adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
-      formatter_class(options).new(adapter, options.merge(_current_url: request.original_url))
+
+      formatter_class(options).new(adapter, options.merge(_current_url: current_url))
                               .format
     end
 
@@ -45,15 +56,15 @@ module Wor
     end
 
     def option_limit(options)
-      options[:limit].to_i unless options[:limit].nil?
+      options[:limit]&.to_i
     end
 
     def option_max_limit(options)
-      options[:max_limit].to_i unless options[:max_limit].nil?
+      options[:max_limit]&.to_i
     end
 
     def param_limit
-      params[Config.per_page_param].to_i unless params[Config.per_page_param].nil?
+      params[Config.per_page_param]&.to_i
     end
 
     def includes?(options)

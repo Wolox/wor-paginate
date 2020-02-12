@@ -17,7 +17,7 @@ module Wor
             page: serialized_content,
             count: count,
             total_pages: total_pages,
-            total_count: total_count,
+            total_count: options[:total_count] || total_count,
             current_page: current_page,
             previous_page: previous_page,
             next_page: next_page,

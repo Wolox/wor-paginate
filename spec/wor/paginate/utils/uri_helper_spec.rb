@@ -23,4 +23,24 @@ describe Wor::Paginate::Utils::UriHelper do
       end
     end
   end
+
+  describe '.query_params' do
+    subject(:query_params) { described_class.query_params(uri) }
+
+    context 'when uri doesn´t have query params' do
+      let(:uri) { 'https://example.com/users' }
+
+      it 'returns an empty hash' do
+        expect(query_params).to eq({})
+      end
+    end
+
+    context 'when uri has query parmas' do
+      let(:uri) { 'https://example.com/users?name=tincho&ord=asc' }
+
+      it 'returns the expected hash' do
+        expect(query_params).to match(name: 'tincho', ord: 'asc')
+      end
+    end
+  end
 end
