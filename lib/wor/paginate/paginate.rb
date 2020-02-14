@@ -20,7 +20,8 @@ module Wor
       adapter ||= find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
 
-      formatter_class(options).new(adapter, options.merge(_current_url: current_url)).format
+      formatter_class(options).new(adapter, options.merge(_current_url: current_url))
+                              .format
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -48,15 +49,15 @@ module Wor
     end
 
     def option_limit(options)
-      options[:limit].to_i unless options[:limit].nil?
+      options[:limit]&.to_i
     end
 
     def option_max_limit(options)
-      options[:max_limit].to_i unless options[:max_limit].nil?
+      options[:max_limit]&.to_i
     end
 
     def param_limit
-      params[Config.per_page_param].to_i unless params[Config.per_page_param].nil?
+      params[Config.per_page_param]&.to_i
     end
 
     def includes?(options)

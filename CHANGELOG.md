@@ -1,5 +1,11 @@
 ## Change log
 
+### V0.2.0
+* [#95](https://github.com/Wolox/wor-paginate/pull/95) Added total_count option to overwrite the count in render_paginated  - [@juanpablo-rojas](https://github.com/juanpablo-rojas).
+* [#93](https://github.com/Wolox/wor-paginate/pull/93) Infinite scroll - [@mnmallea](https://github.com/mnmallea).
+* [#92](https://github.com/Wolox/wor-paginate/pull/92) Ruby 2.7.0 support - [@mnmallea](https://github.com/mnmallea).
+* [#91](https://github.com/Wolox/wor-paginate/pull/91) Navigation links - [@mnmallea](https://github.com/mnmallea).
+
 ### V0.1.10
 * [#90](https://github.com/Wolox/wor-paginate/pull/90) Verify that default adapter adapts - [@mtejedorwolox](https://github.com/mtejedorwolox).
 
