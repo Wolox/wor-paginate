@@ -230,7 +230,7 @@ end
 ```
 Here's a brief explanation on every overwritten method in this CustomAdapter example:
 ##### required_methods:
-These will be the methods (as symbols) that the content to be rendered has to support. The next expression will be evaluated for every method added here: `@content.respond_to? method`. All required_methods must answer `true` to the previous expression, in order to make the adapter "adaptable" for the content. For example, if we rendered an ActiveRecord_Relation, this CustomAdapter will be adaptable because an ActiveRecord_Relation responds to the `count` method. At least one symbol has to be returned in this method, otherwise the adapter won't be able to render content. 
+These will be the methods (as symbols) that the content to be rendered has to support. The next expression will be evaluated for every method added here: `@content.respond_to? method`. All required_methods must answer `true` to the previous expression, in order to make the adapter "adaptable" for the content. For example, if we rendered an ActiveRecord_Relation, this CustomAdapter would be adaptable because an ActiveRecord_Relation responds to the `count` method. At least one symbol has to be returned in this method, otherwise the adapter won't be able to render content. 
 
 ##### paginated_content:
 This is how the content will be shown. As the content comes in the inherited instance variable `@content`, we can transform the content however we want. In the CustomAdapter example, will always be shown the first 5 records.
@@ -242,7 +242,9 @@ This could be defined as the number of pages, given the limit requested. As the 
 This will be the number that will tell us 'how many records is returning the request'. Again, we can customize it however we want. For this particular example this will be just the count of `@content`.
 
 ##### count method as delegate:
-In the end of the CustomAdapter we are delegating the `count` method to the `paginated_content`. Given that we defined the `count` method as a 'required method' for this particular adapter, the adapter has to know "how to calculate" that method, that's why we are defining a `count` method in the delegation. If the content is an ActiveRecord_Relation, for example, this adapter would work, because `paginated_content` would become an ActiveRecord_Relation, which actually knows "how to calculate" the count method. This works as a delegation, because ActiveRecord_Relation has an internal `count` definition, but we would have to provide the needed method definition if it is a custom method, or we want a custom behaviour of a known method.
+In the end of the CustomAdapter we are delegating the `count` method to the `paginated_content`. This is because the Base Adapter delegates that method to the inherited adapter, so owr custom adapter has to know "how to calculate" that method, that's why we are defining a `count` method in the delegation (It is always mandatory to define the `count` method in a custom adapter, whether is a method definition or a delegate).
+
+If the content is an ActiveRecord_Relation, for example, this adapter would work, because `paginated_content` would become an ActiveRecord_Relation, which actually knows "how to calculate" the count method. This works as a delegate, because ActiveRecord_Relation has an internal `count` definition, but we would have to provide the needed method definition if it is a custom method, or we want a custom behaviour of a known method.
 
 ##### other available methods to overwrite:
 `Wor::Paginate::Adapters::Base` also has implementations for `next_page` and `previous_page` methods (which calculate the number of the next and previous pages, respectively). If you want, you can also overwrite those methods, to calculate custom 'next' and 'previous' page numbers.

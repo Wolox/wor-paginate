@@ -16,12 +16,10 @@ module Wor
                                .new(content, current_url,
                                     preserve_records.is_a?(Hash) ? preserve_records : {}).call
       end
-      adapter = instance_adapter(options[:adapter], content, options)
       adapter ||= find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
 
-      formatter_class(options).new(adapter, options.merge(_current_url: current_url))
-                              .format
+      formatter_class(options).new(adapter, options.merge(_current_url: current_url)).format
     end
     # rubocop: enable Metrics/AbcSize
 
@@ -34,6 +32,8 @@ module Wor
     end
 
     def find_adapter_for_content(content, options)
+      return instance_adapter(options[:adapter], content, options) unless options[:adapter].nil?
+
       adapters = []
       adapters << Config.default_adapter if Config.default_adapter.present?
       adapters += Config.adapters
@@ -41,7 +41,7 @@ module Wor
     end
 
     def instance_adapter(adapter, content, options)
-      adapter&.new(content, page(options), limit(options))
+      adapter.new(content, page(options), limit(options))
     end
 
     def page(options)
