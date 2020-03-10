@@ -8,7 +8,6 @@ module Wor
       render json: paginate(content, options)
     end
 
-    # rubocop: disable Metrics/AbcSize
     def paginate(content, options = {})
       current_url = request.original_url
       if (preserve_records = options[:preserve_records])
@@ -16,12 +15,11 @@ module Wor
                                .new(content, current_url,
                                     preserve_records.is_a?(Hash) ? preserve_records : {}).call
       end
-      adapter ||= find_adapter_for_content(content, options)
+      adapter = find_adapter_for_content(content, options)
       raise Exceptions::NoPaginationAdapter if adapter.blank?
 
       formatter_class(options).new(adapter, options.merge(_current_url: current_url)).format
     end
-    # rubocop: enable Metrics/AbcSize
 
     def render_paginate_with_include(content, options)
       render json: paginate(content, options), include: options[:include]
