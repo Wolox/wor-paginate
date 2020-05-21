@@ -303,15 +303,12 @@ end
 
 ### Working with panko-serializer
 
-the default formatter is for Active Model Serializer, if you want change it you should replace the formatter to `PankoFormatter`
+The default formatter is [Active Model Serializer](https://github.com/rails-api/active_model_serializers).
+If you want to change it, you should replace the formatter to another one. In this section, we are going to work with `PankoFormatter`
 
 #### example 
 ```ruby
-Wor::Paginate.configure do |config|
-  config.default_per_page = 25
-
-  config.page_param = :page
-  config.per_page_param = :limit
+Wor::Paginate.configure do |config
   config.formatter = Wor::Paginate::Formatters::PankoFormatter
 end
 ```

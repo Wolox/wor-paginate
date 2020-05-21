@@ -162,7 +162,7 @@ describe DummyModelsController, type: :controller do
         get :index_panko_formatter
       end
 
-      it 'respond with page in the default key' do
+      it 'responds with page in the default key' do
         expect(response_body(response)).to be_paginated
       end
 
