@@ -11,6 +11,17 @@ module Wor
         default_adapter: nil
       }.freeze
 
+      DEFAULT_ADAPTERS = {
+        kaminari_paginated: Adapters::KaminariAlreadyPaginated,
+        will_paginate_paginated: Adapters::WillPaginateAlreadyPaginated,
+        will_paginate: Adapters::WillPaginate,
+        kaminari: Adapters::Kaminari,
+        active_record: Adapters::ActiveRecord,
+        enumerable: Adapters::Enumerable
+      }.freeze
+
+      @adapters = DEFAULT_ADAPTERS.values
+
       module_function
 
       DEFAULTS_CONFIGS.each do |key, value|
@@ -23,9 +34,29 @@ module Wor
         end
       end
 
+      def add_adapter(adapter)
+        @adapters << adapter
+      end
+
+      def remove_adapter(adapter)
+        @adapters.delete(adapter)
+      end
+
+      def clear_adapters
+        @adapters.clear
+      end
+
+      def adapters
+        @adapters
+      end
+
       # This is mostly useful for the tests
       def reset!
         DEFAULTS_CONFIGS.each { |k, v| send("#{k}=", v) }
+      end
+
+      def reset_adapters!
+        @adapters = DEFAULT_ADAPTERS.values
       end
     end
   end

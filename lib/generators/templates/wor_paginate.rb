@@ -22,4 +22,19 @@ Wor::Paginate.configure do |config|
   # Wor::Paginate::Adapters::Kaminari
   # Wor::Paginate::Adapters::ActiveRecord
   # Wor::Paginate::Adapters::Enumerable
+
+  # Custom adapters
+
+  # config.adapters = [
+  # Adapters::KaminariAlreadyPaginated,
+  # Adapters::WillPaginateAlreadyPaginated,
+  # Adapters::WillPaginate,
+  # Adapters::Kaminari,
+  # Adapters::ActiveRecord,
+  # Adapters::Enumerable
+  # ]
+  # config.add_adapter(adapter)
+  # config.remove_adapter(adapter)
+  # config.clear_adapters
+  # config.reset_adapters!
 end

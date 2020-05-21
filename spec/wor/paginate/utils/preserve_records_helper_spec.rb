@@ -33,7 +33,7 @@ describe Wor::Paginate::Utils::PreserveRecordsHelper do
       end
 
       context 'with query params' do
-        let(:requested_time) { Time.zone.now + 1.minutes }
+        let(:requested_time) { Time.zone.now + 1.minute }
         let(:query_params) { "?created_at_let=#{requested_time}" }
         let(:new_content) { create_list(:post, 3, created_at: requested_time + 2.minutes) }
 
@@ -55,7 +55,7 @@ describe Wor::Paginate::Utils::PreserveRecordsHelper do
 
       context 'when using field option' do
         let(:options) { { field: :updated_at } }
-        let(:requested_time) { Time.zone.now + 1.minutes }
+        let(:requested_time) { Time.zone.now + 1.minute }
         let(:query_params) { "?updated_at_let=#{requested_time}" }
         let(:new_content) { create_list(:post, 3, updated_at: requested_time + 2.minutes) }
 

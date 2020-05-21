@@ -154,5 +154,60 @@ describe DummyModelsController, type: :controller do
         expect(response_body(response)['total_count']).to eq 3
       end
     end
+
+    context 'when paginating with a custom adapter' do
+      include_context 'with default pagination params'
+
+      before do
+        pagination_params[:count] = pagination_params[:page] = 8
+        pagination_params[:total_pages] = 4
+        get :index_custom_adapter
+      end
+
+      let(:expected_list) { dummy_models.first(8).as_json(only: %i[id name something]) }
+
+      include_examples 'proper pagination params'
+
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+    end
+
+    context 'when deleting all the adapters' do
+      before { Wor::Paginate::Config.clear_adapters }
+
+      after { Wor::Paginate::Config.reset_adapters! }
+
+      it 'throws NoPaginationAdapter exception' do
+        expect { get :index }
+          .to raise_exception(Wor::Paginate::Exceptions::NoPaginationAdapter)
+      end
+    end
+
+    context 'when removing and adding some adapters' do
+      include_context 'with default pagination params'
+
+      before do
+        config.remove_adapter(Wor::Paginate::Adapters::WillPaginate)
+        config.remove_adapter(Wor::Paginate::Adapters::Kaminari)
+        config.remove_adapter(Wor::Paginate::Adapters::ActiveRecord)
+        config.add_adapter(CustomAdapter)
+        pagination_params[:count] = pagination_params[:page] = 8
+        pagination_params[:total_pages] = 4
+        get :index
+      end
+
+      after { Wor::Paginate::Config.reset_adapters! }
+
+      let(:config) { Wor::Paginate::Config }
+
+      let(:expected_list) { dummy_models.first(8).as_json(only: %i[id name something]) }
+
+      include_examples 'proper pagination params'
+
+      it 'paginates with the behaviour of the remaining adapter that adapts' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+    end
   end
 end
