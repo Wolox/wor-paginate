@@ -45,6 +45,10 @@ class DummyModelsController < ApplicationController
     render_paginated DummyModel.ocurrences_of_name
   end
 
+  def index_custom_adapter
+    render_paginated DummyModel, adapter: CustomAdapter
+  end
+
   def index_panko_formatter
     render_paginated DummyModel,
                      each_serializer: DummyModelWithPankoSerializer,
