@@ -1,5 +1,9 @@
 ## Change log
 
+### V0.3.0
+* [#94](https://github.com/Wolox/wor-paginate/pull/94) Add Panko formatter - [@blacksam07](https://github.com/blacksam07).
+* [#96](https://github.com/Wolox/wor-paginate/pull/96) Dynamic Adapters - [@juanpablo-rojas](https://github.com/juanpablo-rojas).
+
 ### V0.2.0
 * [#95](https://github.com/Wolox/wor-paginate/pull/95) Added total_count option to overwrite the count in render_paginated  - [@juanpablo-rojas](https://github.com/juanpablo-rojas).
 * [#93](https://github.com/Wolox/wor-paginate/pull/93) Infinite scroll - [@mnmallea](https://github.com/mnmallea).
