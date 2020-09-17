@@ -5,5 +5,5 @@ Wor::Paginate.configure do |config|
   config.page_param = :page
   config.per_page_param = :per
 
-  config.formatter = Wor::Paginate::Formatter
+  config.formatter = Wor::Paginate::Formatters::AmsFormatter
 end

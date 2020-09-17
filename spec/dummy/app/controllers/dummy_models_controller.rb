@@ -48,4 +48,10 @@ class DummyModelsController < ApplicationController
   def index_custom_adapter
     render_paginated DummyModel, adapter: CustomAdapter
   end
+
+  def index_panko_formatter
+    render_paginated DummyModel,
+                     each_serializer: DummyModelWithPankoSerializer,
+                     formatter: Wor::Paginate::Formatters::PankoFormatter
+  end
 end

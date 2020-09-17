@@ -155,6 +155,22 @@ describe DummyModelsController, type: :controller do
       end
     end
 
+    context 'when paginating an ActiveRecord with panko formatter' do
+      let(:expected_list) { dummy_models.first(25).as_json(only: %i[id name something]) }
+
+      before do
+        get :index_panko_formatter
+      end
+
+      it 'responds with page in the default key' do
+        expect(response_body(response)).to be_paginated
+      end
+
+      it 'responds with valid page' do
+        expect(response_body(response)['page']).to eq expected_list
+      end
+    end
+
     context 'when paginating with a custom adapter' do
       include_context 'with default pagination params'
 
